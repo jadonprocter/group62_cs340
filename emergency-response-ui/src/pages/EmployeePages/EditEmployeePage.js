@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function EditEmployeePage({ employeeToEdit }) {
-  const [id] = useState(employeeToEdit.id);
+  const [employeeID] = useState(employeeToEdit.employeeID);
   const [firstName, setFirstName] = useState(employeeToEdit.firstName);
   const [lastName, setLastName] = useState(employeeToEdit.lastName);
   const [role, setRole] = useState(employeeToEdit.role);
@@ -15,8 +16,12 @@ function EditEmployeePage({ employeeToEdit }) {
     employeeToEdit.employeeEmail
   );
 
+  const history = useHistory();
+
   const editEmployee = (updatedEmployeeObj) => {
     console.log(updatedEmployeeObj);
+    alert("Employee Updated (Not really there is no backend yet lol)");
+    history.push("/employees");
     // function then makes a call to backend to alter the row in the table with the corresponding id
   };
 
@@ -28,7 +33,6 @@ function EditEmployeePage({ employeeToEdit }) {
           <input
             type="text"
             value={firstName}
-            placeholder={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </label>
@@ -39,7 +43,6 @@ function EditEmployeePage({ employeeToEdit }) {
           <input
             type="text"
             value={lastName}
-            placeholder="Last Name"
             onChange={(e) => setLastName(e.target.value)}
           />
         </label>
@@ -50,7 +53,6 @@ function EditEmployeePage({ employeeToEdit }) {
           <input
             type="text"
             value={role}
-            placeholder="Emergency Response Role"
             onChange={(e) => setRole(e.target.value)}
           />
         </label>
@@ -61,7 +63,6 @@ function EditEmployeePage({ employeeToEdit }) {
           <input
             type="number"
             value={compensationRate}
-            placeholder="Auto increment integer"
             onChange={(e) => setCompensationRate(e.target.value)}
           />
         </label>
@@ -72,7 +73,7 @@ function EditEmployeePage({ employeeToEdit }) {
           <input
             type="text"
             value={areaCode}
-            placeholder="000"
+            placeholder={areaCode}
             onChange={(e) => setAreaCode(e.target.value)}
           />
         </label>
@@ -81,9 +82,8 @@ function EditEmployeePage({ employeeToEdit }) {
         <label>
           Phone Number:
           <input
-            type="number"
+            type="text"
             value={phoneNumber}
-            placeholder="000-0000 (exclude area code)"
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </label>
@@ -94,7 +94,6 @@ function EditEmployeePage({ employeeToEdit }) {
           <input
             type="text"
             value={employeeEmail}
-            placeholder="name@example.com"
             onChange={(e) => setEmployeeEmail(e.target.value)}
           />
         </label>
@@ -103,7 +102,7 @@ function EditEmployeePage({ employeeToEdit }) {
         <button
           onClick={() =>
             editEmployee({
-              id,
+              employeeID,
               firstName,
               lastName,
               role,

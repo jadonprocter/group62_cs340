@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function CreateEmployeePage() {
   const [firstName, setFirstName] = useState();
@@ -8,6 +9,14 @@ function CreateEmployeePage() {
   const [areaCode, setAreaCode] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
   const [employeeEmail, setEmployeeEmail] = useState();
+
+  const history = useHistory();
+
+  const createEmployee = (newEmployeeObj) => {
+    console.log(newEmployeeObj);
+    alert("New Employee Added (Not really there is no back end yet lol)");
+    history.push("/employees");
+  };
 
   return (
     <form>
@@ -36,12 +45,12 @@ function CreateEmployeePage() {
       <div>
         <label>
           Role:
-          <input
-            type="text"
-            value={role}
-            placeholder="Emergency Response Role"
-            onChange={(e) => setRole(e.target.value)}
-          />
+          <select onChange={(e) => setRole(e.target.value)}>
+            <option value="dispatcher">Dispatcher</option>
+            <option value="ambulance-driver">Ambulance Driver</option>
+            <option value="paramedic">Paramedic</option>
+            <option value="trainee">Trainee</option>
+          </select>
         </label>
       </div>
       <div>
@@ -70,7 +79,7 @@ function CreateEmployeePage() {
         <label>
           Phone Number:
           <input
-            type="number"
+            type="text"
             value={phoneNumber}
             placeholder="000-0000 (exclude area code)"
             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -87,6 +96,23 @@ function CreateEmployeePage() {
             onChange={(e) => setEmployeeEmail(e.target.value)}
           />
         </label>
+      </div>
+      <div>
+        <button
+          onClick={() =>
+            createEmployee({
+              firstName,
+              lastName,
+              role,
+              compensationRate,
+              areaCode,
+              phoneNumber,
+              employeeEmail,
+            })
+          }
+        >
+          Add New Employee
+        </button>
       </div>
     </form>
   );

@@ -7,6 +7,7 @@ function EmployeeTable({ employees, editEmployee, deleteEmployee }) {
       <table>
         <thead>
           <tr>
+            <th>Employee ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Role</th>
@@ -20,6 +21,7 @@ function EmployeeTable({ employees, editEmployee, deleteEmployee }) {
           {employees.map((employee) => (
             <EmployeeTableRow
               employee={employee}
+              key={employee.employeeID}
               editEmployee={editEmployee}
               deleteEmployee={deleteEmployee}
             />

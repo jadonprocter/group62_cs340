@@ -6,7 +6,7 @@ import EmployeeTable from "../../components/EmployeeComponents/EmployeeTable";
 function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
   const [employees, setEmployees] = useState([]);
   const history = useHistory();
-  const loadEmployees = async () => {
+  const getEmployees = async () => {
     const demoEmployees = () => {
       return [
         {
@@ -40,16 +40,18 @@ function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
   };
 
   const deleteEmployee = async (employee) => {
+    alert("Deleted Employee (not really cause there is no backend lol)");
     // Make fetch to delete row (employee)
   };
 
   useEffect(() => {
-    loadEmployees();
+    getEmployees();
   }, []);
 
   return (
     <div>
       <h1>Employees</h1>
+      <Link to="/">Home Page</Link>
       <EmployeeTable
         employees={employees}
         editEmployee={editEmployee}
