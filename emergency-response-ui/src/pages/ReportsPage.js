@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import ReportSearch from "../components/ReportSearch";
 import ReportTable from "../components/ReportTable";
 
 function ReportsPage() {
@@ -48,6 +49,7 @@ function ReportsPage() {
             bottom. Pass in reports list to report table for population. */}
             <ReportTable afterreports={afterreports} />
             <Link to='/createreport'>Create New Report</Link>
+            <ReportSearch />
         </div>
     )
 }

@@ -21,7 +21,7 @@ function ReportTable({afterreports}) {
                 <tbody>
                     {/*Map the reports to a table row. Use the report ID as the key. NOTE - still need 
                     to add delete and edit functionality if wanted*/}
-                    {afterreports.map((afterreport) => <ReportTableRow afterreport={afterreport} key={afterreport.afterreportID}></ReportTableRow>)}
+                    {afterreports.map((afterreport) => <ReportTableRow afterreport={afterreport} key={afterreport.reportID}></ReportTableRow>)}
                 </tbody>
             </table>
         </div>
