@@ -176,7 +176,7 @@ function CreateCallLogPage() {
             })
           }
         >
-          Add New Employee
+          Create New Call Log
         </button>
       </div>
     </form>
