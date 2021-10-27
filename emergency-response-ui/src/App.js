@@ -16,6 +16,7 @@ import { useState } from "react";
 
 function App() {
   const [employeeToEdit, setEmployeeToEdit] = useState();
+  const [reportToEdit, setReportToEdit] = useState()
 
   return (
     <div className="App">
@@ -44,10 +45,13 @@ function App() {
             <EmployeeShiftPage />
           </Route>
           <Route path="/reports">
-            <ReportsPage />
+            <ReportsPage setReportToEdit={setReportToEdit} />
           </Route>
           <Route path="/createreport">
             <CreateReport />
+          </Route>
+          <Route path="/editreport">
+            <CreateReport reportToEdit={reportToEdit}/>
           </Route>
           <Route path="/call-logs">
             <CallLogsPage />

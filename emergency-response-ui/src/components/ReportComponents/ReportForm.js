@@ -1,25 +1,24 @@
 import React, {useState} from "react";
 import {useHistory} from 'react-router-dom'
 
-function ReportForm({reporttoedit}) {
-
+function ReportForm({reportToEdit}) {
     const history = useHistory()
 
     //define starting conditions for the form based on if a report was passed in
     
-    const [callID, setcallID] = useState(reporttoedit != null ? reporttoedit.callID : '')
-    const [shiftID, setshiftID] = useState(reporttoedit != null ? reporttoedit.shiftID : '')
-    const [authorID, setauthorID] = useState(reporttoedit != null ? reporttoedit.authorID : 'lb')
-    const [patientFirstName, setpatientFirstName] = useState(reporttoedit != null ? reporttoedit.patientFirstName : '')
-    const [patientLastName, setpatientLastName] = useState(reporttoedit != null ? reporttoedit.patientLastName : '')
-    const [patientGender, setpatientGender] = useState(reporttoedit != null ? reporttoedit.patientGender : '')
-    const [patientAge, setpatientAge] = useState(reporttoedit != null ? reporttoedit.patientAge : '')
-    const [incidentDesc, setincidentDesc] = useState(reporttoedit != null ? reporttoedit.incidentDesc : '')
-    const [medicationFlag, setmedicationFlag] = useState(reporttoedit != null ? reporttoedit.medicationFlag : '')
+    const [callID, setcallID] = useState(reportToEdit != null ? reportToEdit.callID : '')
+    const [shiftID, setshiftID] = useState(reportToEdit != null ? reportToEdit.shiftID : '')
+    const [authorID, setauthorID] = useState(reportToEdit != null ? reportToEdit.authorID : 'lb')
+    const [patientFirstName, setpatientFirstName] = useState(reportToEdit != null ? reportToEdit.patientFirstName : '')
+    const [patientLastName, setpatientLastName] = useState(reportToEdit != null ? reportToEdit.patientLastName : '')
+    const [patientGender, setpatientGender] = useState(reportToEdit != null ? reportToEdit.patientGender : '')
+    const [patientAge, setpatientAge] = useState(reportToEdit != null ? reportToEdit.patientAge : '')
+    const [incidentDesc, setincidentDesc] = useState(reportToEdit != null ? reportToEdit.incidentDesc : '')
+    const [medicationFlag, setmedicationFlag] = useState(reportToEdit != null ? reportToEdit.medicationFlag : '')
 
     //set the flag for if a new report is being created or if one is being updated
     let newFlag = false
-    if (reporttoedit == null) {
+    if (reportToEdit == null) {
         newFlag = true
     } 
     

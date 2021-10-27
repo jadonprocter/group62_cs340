@@ -1,13 +1,14 @@
 import React from "react";
 import ReportTableRow from "./ReportTableRow";
 
-function ReportTable({ afterreports }) {
+function ReportTable({ afterreports, editReport }) {
   return (
     <div>
       <table>
         <thead>
           <tr>
             <th>Report ID</th>
+            <th>Call ID</th>
             <th>Shift ID</th>
             <th>Author ID</th>
             <th>Patient First Name</th>
@@ -24,6 +25,7 @@ function ReportTable({ afterreports }) {
           {afterreports.map((afterreport) => (
             <ReportTableRow
               afterreport={afterreport}
+              editReport={editReport}
               key={afterreport.reportID}
             ></ReportTableRow>
           ))}
