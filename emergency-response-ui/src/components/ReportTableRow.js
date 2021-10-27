@@ -12,6 +12,8 @@ function ReportTableRow({afterreport}) {
             <td>{afterreport.patientAge}</td>
             <td>{afterreport.medicationFlag}</td>
             <td>{afterreport.incidentDesc}</td>
+            <td><button>Edit</button></td>
+            <td><button>Delete</button></td>
         </tr>
     )
 }

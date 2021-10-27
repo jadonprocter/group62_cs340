@@ -26,6 +26,7 @@ function ReportSearch(){
                         placeholder="Enter Search Term"
                         onChange={e => setsearchVal(e.target.value)}/>
                 </label>
+                <button>Submit</button>
             </fieldset>
         </div>
     )

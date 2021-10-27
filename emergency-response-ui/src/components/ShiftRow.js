@@ -8,6 +8,8 @@ function ShiftRow({shift}) {
             <td>{shift.startTime}</td>
             <td>{shift.endTime}</td>
             <td>{shift.holidayPay}</td>
+            <td><button>Edit</button></td>
+            <td><button>Delete</button></td>
         </tr>
     )
 }

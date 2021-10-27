@@ -7,7 +7,6 @@ function ReportForm({reporttoedit}) {
 
     //define starting conditions for the form based on if a report was passed in
     
-    const [reportID, setreportID] = useState(reporttoedit != null ? reporttoedit.reportID : '')
     const [callID, setcallID] = useState(reporttoedit != null ? reporttoedit.callID : '')
     const [shiftID, setshiftID] = useState(reporttoedit != null ? reporttoedit.shiftID : '')
     const [authorID, setauthorID] = useState(reporttoedit != null ? reporttoedit.authorID : 'lb')
@@ -74,16 +73,7 @@ function ReportForm({reporttoedit}) {
     return (
         <div>
             <form>
-                    <div className="inputBox">
-                        <label>Report ID:
-                            <input 
-                                type="number"
-                                value={reportID}
-                                placeholder="Auto increment integer"
-                                onChange={e => setreportID(e.target.value)}  />
-                        </label>
-                    </div>
-                    
+                                        
                     <div className="inputBox">
                         <label>Call ID:
                             <input 
