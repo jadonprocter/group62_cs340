@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ReportSearch from "../components/ReportSearch";
-import ReportTable from "../components/ReportTable";
+import ReportSearch from "../../components/ReportComponents/ReportSearch";
+import ReportTable from "../../components/ReportComponents/ReportTable";
 
 function ReportsPage() {
     // define reports to pass in to table

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ShiftForm from "../components/ShiftForm";
-import ShiftTable from "../components/ShiftTable";
+import ShiftForm from "../../components/ShiftComponents/ShiftForm";
+import ShiftTable from "../../components/ShiftComponents/ShiftTable";
 
 function ShiftsPage() {
     const [shifts, setShifts] = useState([])

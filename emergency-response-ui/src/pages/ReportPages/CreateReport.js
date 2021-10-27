@@ -1,5 +1,5 @@
 import React from "react";
-import ReportForm from "../components/ReportForm";
+import ReportForm from "../../components/ReportComponents/ReportForm";
 
 function CreateReport() {
     return (
