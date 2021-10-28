@@ -4,18 +4,19 @@ import "./App.css";
 import NavigationBar from "./components/NavigationBar";
 import HomePage from "./pages/HomePage";
 import EmployeesPage from "./pages/EmployeePages/EmployeesPage";
-import ShiftsPage from "./pages/Shifts";
+import ShiftsPage from "./pages/ShiftPage/Shifts";
 import EmployeeShiftPage from "./pages/EmployeeShiftPages/EmployeeShiftPage";
-import ReportsPage from "./pages/ReportsPage";
+import ReportsPage from "./pages/ReportPages/ReportsPage";
 import CallLogsPage from "./pages/CallLogPages/CallLogsPage";
 import CreateCallLogPage from "./pages/CallLogPages/CreateCallLogPage";
-import CreateReport from "./pages/CreateReport";
+import CreateReport from "./pages/ReportPages/CreateReport";
 import CreateEmployeePage from "./pages/EmployeePages/CreateEmployeePage";
 import EditEmployeePage from "./pages/EmployeePages/EditEmployeePage";
 import { useState } from "react";
 
 function App() {
   const [employeeToEdit, setEmployeeToEdit] = useState();
+  const [reportToEdit, setReportToEdit] = useState()
 
   return (
     <div className="App">
@@ -44,10 +45,13 @@ function App() {
             <EmployeeShiftPage />
           </Route>
           <Route path="/reports">
-            <ReportsPage />
+            <ReportsPage setReportToEdit={setReportToEdit} />
           </Route>
           <Route path="/createreport">
             <CreateReport />
+          </Route>
+          <Route path="/editreport">
+            <CreateReport reportToEdit={reportToEdit}/>
           </Route>
           <Route path="/call-logs">
             <CallLogsPage />

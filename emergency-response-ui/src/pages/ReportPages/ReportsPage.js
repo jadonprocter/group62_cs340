@@ -1,10 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import ReportSearch from "../components/ReportSearch";
-import ReportTable from "../components/ReportTable";
+import { Link, useHistory } from "react-router-dom";
+import ReportSearch from "../../components/ReportComponents/ReportSearch";
+import ReportTable from "../../components/ReportComponents/ReportTable";
 
-function ReportsPage() {
+function ReportsPage({setReportToEdit}) {
+    const history = useHistory()
     // define reports to pass in to table
     const [afterreports, setafterReports] = useState([])
 
@@ -14,6 +15,7 @@ function ReportsPage() {
         const demoReports = [
             {
             reportID: 1234,
+            callID: 89743,
             shiftID: 1234,
             authorID: 1234,
             patientFirstName: "John",
@@ -25,6 +27,7 @@ function ReportsPage() {
             },
             {
             reportID: 2352,
+            callID: 987234,
             shiftID: 9875,
             authorID: 2134,
             patientFirstName: "Jane",
@@ -42,12 +45,17 @@ function ReportsPage() {
         loadReports();
     }, []);
 
+    function editReport(reportToEdit) {
+        setReportToEdit(reportToEdit)
+        history.push('/editreport')
+    }
+
     return (
         <div>
             <h1>Reports</h1>
             {/*insert the table of existing reports here, have a link to creating a new report at the 
             bottom. Pass in reports list to report table for population. */}
-            <ReportTable afterreports={afterreports} />
+            <ReportTable afterreports={afterreports} editReport={editReport} />
             <Link to='/createreport'>Create New Report</Link>
             <ReportSearch />
         </div>
