@@ -7,6 +7,19 @@
   pointer-events: none;
 }
 
+.nav {
+  position: fixed;
+  top:0px;
+  left:0px;
+  width: 100%;
+  text-align: left;
+}
+
+.navbutton{
+  margin-left:0.25%;
+  margin-right:0.25%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -14,14 +27,15 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ececec;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: calc(8px + 2vmin);
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: black;
 }
 
 .App-link {

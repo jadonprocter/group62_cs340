@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import EmployeeTable from "../../components/employeeComponents/EmployeeTable";
+import EmployeeTable from "../../components/EmployeeComponents/EmployeeTable";
 
 function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
   const [employees, setEmployees] = useState([]);
