@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import logo from "./logo.svg";
 import "./App.css";
 import NavigationBar from "./components/NavigationBar";
 import HomePage from "./pages/HomePage";
@@ -16,7 +15,7 @@ import { useState } from "react";
 
 function App() {
   const [employeeToEdit, setEmployeeToEdit] = useState();
-  const [reportToEdit, setReportToEdit] = useState()
+  const [reportToEdit, setReportToEdit] = useState();
 
   return (
     <div className="App">
@@ -51,7 +50,7 @@ function App() {
             <CreateReport />
           </Route>
           <Route path="/editreport">
-            <CreateReport reportToEdit={reportToEdit}/>
+            <CreateReport reportToEdit={reportToEdit} />
           </Route>
           <Route path="/call-logs">
             <CallLogsPage />
