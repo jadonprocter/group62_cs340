@@ -12,6 +12,7 @@ import CreateCallLogPage from "./pages/CallLogPages/CreateCallLogPage";
 import CreateReport from "./pages/ReportPages/CreateReport";
 import CreateEmployeePage from "./pages/EmployeePages/CreateEmployeePage";
 import EditEmployeePage from "./pages/EmployeePages/EditEmployeePage";
+import ReportEmployeesPage from "./pages/ReportEmployeePages/ReportEmployeesPage";
 import { useState } from "react";
 
 function App() {
@@ -52,6 +53,9 @@ function App() {
           </Route>
           <Route path="/editreport">
             <CreateReport reportToEdit={reportToEdit}/>
+          </Route>
+          <Route path="/reportemployees">
+            <ReportEmployeesPage/>
           </Route>
           <Route path="/call-logs">
             <CallLogsPage />
