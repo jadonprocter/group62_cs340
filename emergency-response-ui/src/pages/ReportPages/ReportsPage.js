@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import ReportSearch from "../../components/ReportComponents/ReportSearch";
 import ReportTable from "../../components/ReportComponents/ReportTable";
+import { Button } from "react-bootstrap";
 
 function ReportsPage({ setReportToEdit }) {
   const history = useHistory();
@@ -57,7 +58,9 @@ function ReportsPage({ setReportToEdit }) {
       {/*insert the table of existing reports here, have a link to creating a new report at the 
             bottom. Pass in reports list to report table for population. */}
       <ReportTable afterreports={afterreports} editReport={editReport} />
-      <Link to="/createreport">Create New Report</Link>
+      <Link to="/createreport">
+        <Button variant="primary">Create Report</Button>
+      </Link>
       <ReportSearch />
     </div>
   );

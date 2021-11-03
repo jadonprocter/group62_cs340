@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import EmployeeShiftTable from "../../components/EmployeeShiftComponents/EmployeeShiftTable";
+import { Form, Row, Col, Button } from "react-bootstrap";
+import AssignEmployeeShiftForm from "../../components/EmployeeShiftComponents/AssignEmployeeShiftForm";
 
 function EmployeeShiftPage() {
   const [employeeShifts, setEmployeeShifts] = useState([]);
@@ -56,19 +58,12 @@ function EmployeeShiftPage() {
     <div>
       <h1>Employee Shifts</h1>
       <EmployeeShiftTable employeeShifts={employeeShifts} />
-      <div>
-        <form>
-          <label>
-            Search:
-            <input
-              type="search"
-              placeholder="search"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </label>
-          <label>
-            Search By:
-            <select onChange={(e) => setSearchBy(e.target.value)}>
+      <br />
+      <Form>
+        <Row>
+          <Col>
+            <Form.Label>Search By:</Form.Label>
+            <Form.Select onChange={(e) => setSearchBy(e.target.value)}>
               <option value="employeeID">employeeID</option>
               <option value="employeeFirstName">employeeFirstName</option>
               <option value="employeeLastName">employeeLastName</option>
@@ -76,11 +71,25 @@ function EmployeeShiftPage() {
               <option value="startDate">startDate</option>
               <option value="startTime">startTime</option>
               <option value="endTime">endTime</option>
-            </select>
-          </label>
-          <button onClick={() => onSearch}>Search</button>
-        </form>
-      </div>
+            </Form.Select>
+          </Col>
+          <Col>
+            <Form.Label>Search:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </Col>
+        </Row>
+        <br />
+        <Button variant="primary" type="submit" onClick={() => onSearch}>
+          Search
+        </Button>
+      </Form>
+
+      <AssignEmployeeShiftForm />
+      <br />
     </div>
   );
 }

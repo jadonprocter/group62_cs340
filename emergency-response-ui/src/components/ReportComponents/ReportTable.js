@@ -1,10 +1,10 @@
 import React from "react";
-import ReportTableRow from "./ReportTableRow";
+import { Table } from "react-bootstrap";
 
 function ReportTable({ afterreports, editReport }) {
   return (
     <div>
-      <table>
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>Report ID</th>
@@ -20,8 +20,34 @@ function ReportTable({ afterreports, editReport }) {
           </tr>
         </thead>
         <tbody>
-          {/*Map the reports to a table row. Use the report ID as the key. NOTE - still need 
-                    to add delete and edit functionality if wanted*/}
+          {afterreports.map((afterreport, i) => {
+            return (
+              <tr key={i}>
+                {Object.values(afterreport).map((attribute, j) => {
+                  return <td key={j}>{attribute}</td>;
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+      {/* <table>
+        <thead>
+          <tr>
+            <th>Report ID</th>
+            <th>Call ID</th>
+            <th>Shift ID</th>
+            <th>Author ID</th>
+            <th>Patient First Name</th>
+            <th>Patient Last Name</th>
+            <th>Patient Gender</th>
+            <th>Patient Age</th>
+            <th>Medications Administered</th>
+            <th>Incident Description</th>
+          </tr>
+        </thead>
+        <tbody>
+
           {afterreports.map((afterreport) => (
             <ReportTableRow
               afterreport={afterreport}
@@ -30,7 +56,7 @@ function ReportTable({ afterreports, editReport }) {
             ></ReportTableRow>
           ))}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }

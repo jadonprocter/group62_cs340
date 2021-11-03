@@ -1,11 +1,32 @@
 import React from "react";
-import ShiftRow from "./ShiftRow";
+import { Table } from "react-bootstrap";
 
-function ShiftTable({shifts}){
-
-    return(
-        <div>
-            <table>
+function ShiftTable({ shifts }) {
+  return (
+    <div>
+      <Table striped bordered hover responsive>
+        <thead>
+          <tr>
+            <th>Shift ID</th>
+            <th>Start Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Holiday Pay</th>
+          </tr>
+        </thead>
+        <tbody>
+          {shifts.map((shift, i) => {
+            return (
+              <tr key={i}>
+                {Object.values(shift).map((attribute, j) => {
+                  return <td key={j}>{attribute}</td>;
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+      {/* <table>
                 <thead>
                     <tr>
                         <th>Shift ID</th>
@@ -18,9 +39,9 @@ function ShiftTable({shifts}){
                 <tbody>
                     {shifts.map((shift) => <ShiftRow shift={shift} key={shift.shiftID}></ShiftRow>)}
                 </tbody>
-            </table>
-        </div>
-    )
+            </table> */}
+    </div>
+  );
 }
 
-export default ShiftTable
+export default ShiftTable;
