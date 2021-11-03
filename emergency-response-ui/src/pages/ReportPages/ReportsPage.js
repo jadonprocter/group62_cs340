@@ -47,6 +47,11 @@ function ReportsPage({ setReportToEdit }) {
     loadReports();
   }, []);
 
+  const deleteReport = () => {
+    alert('Report deleted')
+    history.push("/reports")
+  }
+
   function editReport(reportToEdit) {
     setReportToEdit(reportToEdit);
     history.push("/editreport");
@@ -57,7 +62,7 @@ function ReportsPage({ setReportToEdit }) {
       <h1>Reports</h1>
       {/*insert the table of existing reports here, have a link to creating a new report at the 
             bottom. Pass in reports list to report table for population. */}
-      <ReportTable afterreports={afterreports} editReport={editReport} />
+      <ReportTable afterreports={afterreports} editReport={editReport} deleteReport={deleteReport}/>
       <Link to="/createreport">
         <Button variant="primary">Create Report</Button>
       </Link>

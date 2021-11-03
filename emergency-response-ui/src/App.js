@@ -62,6 +62,9 @@ function App() {
                 <Route path="/editreport">
                   <CreateReport reportToEdit={reportToEdit} />
                 </Route>
+                <Route path="/reportemployees">
+                  <ReportEmployeesPage />
+                </Route>
                 <Route path="/call-logs">
                   <CallLogsPage />
                 </Route>

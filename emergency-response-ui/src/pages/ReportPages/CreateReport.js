@@ -12,7 +12,7 @@ function CreateReport({ reportToEdit }) {
   } else {
     return (
       <div>
-        <h1>Create a Report</h1>
+        <h1>Edit a Report</h1>
         <ReportForm reportToEdit={reportToEdit}></ReportForm>
       </div>
     );

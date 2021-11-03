@@ -1,7 +1,7 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
-function ReportTable({ afterreports, editReport }) {
+function ReportTable({ afterreports, editReport, deleteReport }) {
   return (
     <div>
       <Table striped bordered hover responsive>
@@ -26,6 +26,24 @@ function ReportTable({ afterreports, editReport }) {
                 {Object.values(afterreport).map((attribute, j) => {
                   return <td key={j}>{attribute}</td>;
                 })}
+                <td>
+                  <Button
+                    onClick={() => editReport(afterreport)}
+                    variant="secondary"
+                    size="sm"
+                  >
+                    edit
+                  </Button>
+                </td>
+                <td>
+                  <Button
+                    onClick={() => deleteReport(afterreport)}
+                    variant="secondary"
+                    size="sm"
+                  >
+                    delete
+                  </Button>
+                </td>
               </tr>
             );
           })}

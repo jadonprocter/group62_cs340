@@ -11,7 +11,8 @@ function NavigationBar() {
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/employees">Employees</Nav.Link>
           <Nav.Link href="/shifts">Shifts</Nav.Link>
-          <Nav.Link href="/Reports">Reports</Nav.Link>
+          <Nav.Link href="/reports">Reports</Nav.Link>
+          <Nav.Link href="/reportemployees">ReportEmployees</Nav.Link>
           <Nav.Link href="/call-logs">CallLogs</Nav.Link>
           <Nav.Link href="/employee-shifts">EmployeeShifts</Nav.Link>
         </Nav>
