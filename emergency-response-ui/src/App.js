@@ -24,48 +24,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Router>
-<<<<<<< HEAD
-          <NavigationBar />
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
-          <Route path="/employees">
-            <EmployeesPage
-              employeeToEdit={employeeToEdit}
-              setEmployeeToEdit={setEmployeeToEdit}
-            />
-          </Route>
-          <Route path="/create-employee">
-            <CreateEmployeePage />
-          </Route>
-          <Route path="/edit-employee">
-            <EditEmployeePage employeeToEdit={employeeToEdit} />
-          </Route>
-          <Route path="/shifts">
-            <ShiftsPage />
-          </Route>
-          <Route path="/employee-shifts">
-            <EmployeeShiftPage />
-          </Route>
-          <Route path="/reports">
-            <ReportsPage setReportToEdit={setReportToEdit} />
-          </Route>
-          <Route path="/createreport">
-            <CreateReport />
-          </Route>
-          <Route path="/editreport">
-            <CreateReport reportToEdit={reportToEdit}/>
-          </Route>
-          <Route path="/reportemployees">
-            <ReportEmployeesPage/>
-          </Route>
-          <Route path="/call-logs">
-            <CallLogsPage />
-          </Route>
-          <Route path="/create-call-log">
-            <CreateCallLogPage />
-          </Route>
-=======
           <Container fluid>
             <Row>
               <Col>
@@ -113,7 +71,6 @@ function App() {
               </Col>
             </Row>
           </Container>
->>>>>>> 71cafe702cc45cef9f9b923fcc23ae72a697bb81
         </Router>
       </header>
     </div>
