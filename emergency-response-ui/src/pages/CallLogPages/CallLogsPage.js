@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import CallLogTable from "../../components/CallLogComponents/CallLogTable";
 
 function CallLogsPage() {
@@ -53,7 +54,7 @@ function CallLogsPage() {
       <h1>Call Logs</h1>
       <CallLogTable callLogs={callLogs} />
       <Link to="/create-call-log">
-        <button>Create Call Log</button>
+        <Button variant="primary">Create Call Log</Button>
       </Link>
     </div>
   );

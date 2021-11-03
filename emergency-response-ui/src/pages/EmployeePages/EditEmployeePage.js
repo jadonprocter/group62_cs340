@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
 function EditEmployeePage({ employeeToEdit }) {
   const [employeeID] = useState(employeeToEdit.employeeID);
@@ -26,97 +27,98 @@ function EditEmployeePage({ employeeToEdit }) {
   };
 
   return (
-    <form>
-      <div>
-        <label>
-          First Name:
-          <input
+    <Form>
+      <Row>
+        <Col>
+          <Form.Label>First Name:</Form.Label>
+          <Form.Control
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Last Name:
-          <input
+        </Col>
+        <Col>
+          <Form.Label>Last Name:</Form.Label>
+          <Form.Control
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Role:
-          <input
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Role:</Form.Label>
+          <Form.Control
             type="text"
             value={role}
             onChange={(e) => setRole(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Compensation Rate (hourly):
-          <input
+        </Col>
+        <Col>
+          <Form.Label>Compensation Rate (hourly):</Form.Label>
+          <Form.Control
             type="number"
             value={compensationRate}
             onChange={(e) => setCompensationRate(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Area Code:
-          <input
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Area Code:</Form.Label>
+          <Form.Control
             type="text"
             value={areaCode}
             placeholder={areaCode}
             onChange={(e) => setAreaCode(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Phone Number:
-          <input
+        </Col>
+        <Col>
+          <Form.Label>Phone Number:</Form.Label>
+          <Form.Control
             type="text"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Employee Email:
-          <input
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Employee Email:</Form.Label>
+          <Form.Control
             type="text"
             value={employeeEmail}
             onChange={(e) => setEmployeeEmail(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <button
-          onClick={() =>
-            editEmployee({
-              employeeID,
-              firstName,
-              lastName,
-              role,
-              compensationRate,
-              areaCode,
-              phoneNumber,
-              employeeEmail,
-            })
-          }
-        >
-          SUBMIT
-        </button>
-      </div>
-    </form>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Button
+            variant="primary"
+            onClick={() =>
+              editEmployee({
+                employeeID,
+                firstName,
+                lastName,
+                role,
+                compensationRate,
+                areaCode,
+                phoneNumber,
+                employeeEmail,
+              })
+            }
+          >
+            SUBMIT
+          </Button>
+        </Col>
+      </Row>
+    </Form>
   );
 }
 export default EditEmployeePage;

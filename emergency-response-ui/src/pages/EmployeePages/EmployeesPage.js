@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import EmployeeTable from "../../components/EmployeeComponents/EmployeeTable";
+import { Button } from "react-bootstrap";
 
 function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
   const [employees, setEmployees] = useState([]);
@@ -51,14 +52,13 @@ function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
   return (
     <div>
       <h1>Employees</h1>
-      <Link to="/">Home Page</Link>
       <EmployeeTable
         employees={employees}
         editEmployee={editEmployee}
         deleteEmployee={deleteEmployee}
       />
       <Link to="create-employee">
-        <button>Create New Employee</button>
+        <Button primary>Create New Employee</Button>
       </Link>
     </div>
   );

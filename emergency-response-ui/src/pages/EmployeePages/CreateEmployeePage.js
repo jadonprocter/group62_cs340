@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
+import { Form, Row, Col, Button } from "react-bootstrap";
 function CreateEmployeePage() {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -19,102 +19,104 @@ function CreateEmployeePage() {
   };
 
   return (
-    <form>
-      <div>
-        <label>
-          First Name:
-          <input
+    <Form>
+      <Row>
+        <Col>
+          <Form.Label>First Name:</Form.Label>
+          <Form.Control
             type="text"
             value={firstName}
             placeholder="First Name"
             onChange={(e) => setFirstName(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Last Name:
-          <input
+        </Col>
+        <Col>
+          <Form.Label>Last Name:</Form.Label>
+          <Form.Control
             type="text"
             value={lastName}
             placeholder="Last Name"
             onChange={(e) => setLastName(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Role:
-          <select onChange={(e) => setRole(e.target.value)}>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Role:</Form.Label>
+          <Form.Select onChange={(e) => setRole(e.target.value)}>
             <option value="dispatcher">Dispatcher</option>
             <option value="ambulance-driver">Ambulance Driver</option>
             <option value="paramedic">Paramedic</option>
             <option value="trainee">Trainee</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <label>
-          Compensation Rate (hourly):
-          <input
-            type="number"
-            value={compensationRate}
-            placeholder="Auto increment integer"
-            onChange={(e) => setCompensationRate(e.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Area Code:
-          <input
+          </Form.Select>
+        </Col>
+        <Col>
+          <Form.Label>Role:</Form.Label>
+          <Form.Select onChange={(e) => setRole(e.target.value)}>
+            <option value="dispatcher">Dispatcher</option>
+            <option value="ambulance-driver">Ambulance Driver</option>
+            <option value="paramedic">Paramedic</option>
+            <option value="trainee">Trainee</option>
+          </Form.Select>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Area Code:</Form.Label>
+          <Form.Control
             type="text"
             value={areaCode}
             placeholder="000"
             onChange={(e) => setAreaCode(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Phone Number:
-          <input
+        </Col>
+        <Col>
+          <Form.Label>Phone Number:</Form.Label>
+          <Form.Control
             type="text"
             value={phoneNumber}
             placeholder="000-0000 (exclude area code)"
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Employee Email:
-          <input
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Employee Email:</Form.Label>
+          <Form.Control
             type="text"
             value={employeeEmail}
             placeholder="name@example.com"
             onChange={(e) => setEmployeeEmail(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <button
-          onClick={() =>
-            createEmployee({
-              firstName,
-              lastName,
-              role,
-              compensationRate,
-              areaCode,
-              phoneNumber,
-              employeeEmail,
-            })
-          }
-        >
-          Add New Employee
-        </button>
-      </div>
-    </form>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Button
+            variant="primary"
+            onClick={() =>
+              createEmployee({
+                firstName,
+                lastName,
+                role,
+                compensationRate,
+                areaCode,
+                phoneNumber,
+                employeeEmail,
+              })
+            }
+          >
+            Add New Employee
+          </Button>
+        </Col>
+      </Row>
+      <br />
+    </Form>
   );
 }
 

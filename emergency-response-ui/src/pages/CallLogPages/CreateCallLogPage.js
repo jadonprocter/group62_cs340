@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Form, Button, Row, Col } from "react-bootstrap";
+
 function CreateCallLogPage() {
   const history = useHistory();
   const [callID, setCallID] = useState();
@@ -25,161 +27,164 @@ function CreateCallLogPage() {
   };
 
   return (
-    <form>
-      <div>
-        <label>
-          Call ID:
-          <input
+    <Form>
+      <Row>
+        <Col>
+          <Form.Label>Call ID:</Form.Label>
+          <Form.Control
             type="number"
             value={callID}
             placeholder="Call ID"
             onChange={(e) => setCallID(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Shift ID:
-          <input
+        </Col>
+        <Col>
+          <Form.Label>Shift ID:</Form.Label>
+          <Form.Control
             type="number"
             value={shiftID}
             placeholder="Shift ID"
             onChange={(e) => setShiftID(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Dispatcher ID:
-          <input
+        </Col>
+        <Col>
+          <Form.Label>Dispatcher ID:</Form.Label>
+          <Form.Control
             type="number"
             value={dispatcherID}
             placeholder="Dispatcher ID"
             onChange={(e) => setDispatcherID(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Response Type:
-          <select onChange={(e) => setResponseType(e.target.value)}>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Response Type:</Form.Label>
+          <Form.Select onChange={(e) => setResponseType(e.target.value)}>
             <option value="default">Default</option>
             <option value="different-default">Different Default</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <label>
-          Caller First Name:
-          <input
+          </Form.Select>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Caller First Name:</Form.Label>
+          <Form.Control
             type="text"
             value={callerFirstName}
             placeholder="Caller First Name"
             onChange={(e) => setCallerFirstName(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Caller Last Name:
-          <input
+        </Col>
+        <Col>
+          <Form.Label>Caller Last Name:</Form.Label>
+          <Form.Control
             type="text"
             value={callerLastName}
             placeholder="Caller Last Name"
             onChange={(e) => setCallerLastName(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Chief Complaint:
-          <input
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Chief Complaint:</Form.Label>
+          <Form.Control
             type="text"
             value={chiefComplaint}
             placeholder="Chief Complaint"
             onChange={(e) => setChiefComplaint(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Area Code:
-          <input
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col xs lg="2">
+          <Form.Label>Area Code:</Form.Label>
+          <Form.Control
             type="text"
             value={areaCode}
             placeholder="000"
             onChange={(e) => setAreaCode(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Phone Number:
-          <input
+        </Col>
+        <Col>
+          <Form.Label>Phone Number: </Form.Label>
+          <Form.Control
             type="text"
             value={phoneNumber}
             placeholder="000-0000 (exclude area code)"
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Street Address:
-          <input
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Street Address:</Form.Label>
+          <Form.Control
             type="text"
             value={streetAddress}
             placeholder="123 Example Street"
             onChange={(e) => setStreetAddress(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Zip Code:
-          <input
+        </Col>
+
+        <Col>
+          <Form.Label> Zip Code:</Form.Label>
+          <Form.Control
             type="text"
             value={zipCode}
             placeholder="12345"
             onChange={(e) => setZipCode(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Phone Notes:
-          <input
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Form.Label>Phone Notes:</Form.Label>
+          <Form.Control
+            as="textarea"
             type="text"
             value={phoneNotes}
             placeholder="Notes..."
             onChange={(e) => setPhoneNotes(e.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <button
-          onClick={() =>
-            createCallLog({
-              callID,
-              shiftID,
-              dispatcherID,
-              timeStamp,
-              responseType,
-              callerFirstName,
-              callerLastName,
-              chiefComplaint,
-              areaCode,
-              phoneNumber,
-              streetAddress,
-              zipCode,
-              phoneNotes,
-            })
-          }
-        >
-          Create New Call Log
-        </button>
-      </div>
-    </form>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col>
+          <Button
+            variant="primary"
+            onClick={() =>
+              createCallLog({
+                callID,
+                shiftID,
+                dispatcherID,
+                timeStamp,
+                responseType,
+                callerFirstName,
+                callerLastName,
+                chiefComplaint,
+                areaCode,
+                phoneNumber,
+                streetAddress,
+                zipCode,
+                phoneNotes,
+              })
+            }
+          >
+            Create New Call Log
+          </Button>
+        </Col>
+      </Row>
+      <br />
+    </Form>
   );
 }
 
