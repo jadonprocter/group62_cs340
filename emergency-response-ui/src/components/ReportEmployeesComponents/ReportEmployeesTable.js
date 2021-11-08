@@ -1,10 +1,10 @@
 import React from "react";
-import ReportEmployeesRow from "./ReportEmployeesRow";
+import {Table} from "react-bootstrap" 
 
 function ReportEmployeesTable({reportEmployees}){
     return(
         <div>    
-            <table>
+            <Table striped bordered hover responsive>
                 <thead>
                     <tr>
                         <th>Employee ID</th>
@@ -16,11 +16,19 @@ function ReportEmployeesTable({reportEmployees}){
                     </tr>
                 </thead>
                 <tbody>
-                    {reportEmployees.map((reportEmployee) => (<ReportEmployeesRow 
-                                                                reportEmployee={reportEmployee}
-                                                                key={reportEmployee.employeeFirstName}/>))}
+                    {reportEmployees.map((reportEmployee, i) => {
+                        return(
+                            <tr key={i}>
+                                {Object.values(reportEmployee).map((attribute, j) => {
+                                    return(
+                                        <td key={j}>
+                                        {attribute}
+                                        </td>
+                                )})} 
+                            </tr>
+                    )})}
                 </tbody>
-            </table>
+            </Table>
         </div>
     )
 }

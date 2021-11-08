@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Form, Row, Button, Col} from "react-bootstrap"
 
 function ReportEmployeesForm(){
     const [employeeID, setemployeeID] = useState('')
@@ -12,18 +13,25 @@ function ReportEmployeesForm(){
 
     return(
         <div>
-            <form>
-                <fieldset>
-                    <legend>Add an employee to a report:</legend>
-                    <label>Employee ID: 
-                        <input type='number' placeholder={employeeID} onChange={(e) => setemployeeID(e.target.value)}></input>
-                    </label>
-                    <label> Report ID:
-                        <input type='number' placeholder={reportID} onChange={(e) => setreportID(e.target.value)}></input>
-                    </label>
-                    <button onClick={(e) => addreportemployee(e)}>Submit</button>
-                </fieldset>
-            </form>
+            <Form>
+                <br />
+                <Form.Label>Add an Employee to a Report:</Form.Label>
+                <br />
+                <Row>
+                    <Col>
+                        <Form.Label>Employee ID: 
+                            <Form.Control placeholder='Employee ID' onChange={(e) => setemployeeID(e.target.value)}></Form.Control>
+                        </Form.Label>
+                    </Col>
+                    <Col>
+                        <Form.Label> Report ID:
+                            <Form.Control placeholder = 'Report ID' onChange={(e) => setreportID(e.target.value)}></Form.Control>
+                        </Form.Label>
+                    </Col>
+                </Row>
+                <br />
+                <Button variant='primary' onClick={(e) => addreportemployee(e)}>Add</Button>
+            </Form>
         </div>
     )
 }
