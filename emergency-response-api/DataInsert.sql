@@ -1,4 +1,3 @@
-
 DELETE from EmergencyResponseEmployees;
 DELETE from Shifts;
 DELETE from CallLogs;
