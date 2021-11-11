@@ -78,7 +78,7 @@ SELECT
 FROM 
     Shifts 
 WHERE 
-    shiftDate <= CURRDATE() 
+    shiftDate <= CURDATE() 
 ORDER BY 
     shiftDate DESC;
 
@@ -113,7 +113,7 @@ SELECT
 FROM
     ReportEmployees re 
     INNER JOIN 
-    Employees e ON re.employeeID = e.employeeID
+    EmergencyResponseEmployees e ON re.employeeID = e.employeeID
     INNER JOIN 
     Reports r ON re.reportID = r.reportID
 
