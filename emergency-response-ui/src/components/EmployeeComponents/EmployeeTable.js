@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
 
-function EmployeeTable({ employees, editEmployee, deleteEmployee }) {
+function EmployeeTable({ employees, editEmployee }) {
   return (
     <div>
       <Table striped bordered hover responsive>
@@ -31,15 +31,6 @@ function EmployeeTable({ employees, editEmployee, deleteEmployee }) {
                     size="sm"
                   >
                     edit
-                  </Button>
-                </td>
-                <td>
-                  <Button
-                    onClick={() => deleteEmployee(employee)}
-                    variant="secondary"
-                    size="sm"
-                  >
-                    delete
                   </Button>
                 </td>
               </tr>

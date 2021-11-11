@@ -40,11 +40,6 @@ function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
     history.push("/edit-employee");
   };
 
-  const deleteEmployee = async (employee) => {
-    alert("Deleted Employee (not really cause there is no backend lol)");
-    // Make fetch to delete row (employee)
-  };
-
   useEffect(() => {
     getEmployees();
   }, []);
@@ -52,11 +47,7 @@ function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
   return (
     <div>
       <h1>Employees</h1>
-      <EmployeeTable
-        employees={employees}
-        editEmployee={editEmployee}
-        deleteEmployee={deleteEmployee}
-      />
+      <EmployeeTable employees={employees} editEmployee={editEmployee} />
       <Link to="create-employee">
         <Button primary>Create New Employee</Button>
       </Link>
