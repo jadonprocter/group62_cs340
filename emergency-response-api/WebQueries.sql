@@ -5,6 +5,22 @@
 /* ---------------------------------------------------------------------------------------------------------------
 Employees
 -------------------------------------------------------------------------------------------------------------------*/
+-- select for table
+SELECT
+    employeeID, firstName, lastName, role, compensationRate, areaCode, phoneNumber, employeeEmail
+FROM
+    EmergencyResponseEmployees;
+
+-- create new employee
+INSERT INTO 
+    EmergencyResponseEmployees(firstName, lastName, role, compensationRate, areaCode, phoneNumber, employeeEmail)
+VALUES
+    (:firstName, :lastName, :role, :compensationRate, :areaCode, :phoneNumber, :employeeEmail);
+
+-- edit existing employee in the table
+UPDATE EmergencyResponseEmployees
+SET firstName = :firstName, lastName = :lastName, role = :role, compensationRate = :compensationRate, areaCode = :areaCode, phoneNumber = :phoneNumber, employeeEmail = :employeeEmail
+WHERE employeeID = :employeeID;
 
 
 /* ---------------------------------------------------------------------------------------------------------------
@@ -25,7 +41,17 @@ VALUES
 /* ---------------------------------------------------------------------------------------------------------------
 CallLogs
 -------------------------------------------------------------------------------------------------------------------*/
+ -- select CallLogs for Table
+SELECT
+    callID, shiftID, dispatcherID, callTimeStamp, responseType, callerFirstName, callerLastName, chiefComplaint, areaCode, phoneNumber, streetAddress, zipCode, phoneNotes
+FROM
+    CallLogs;
 
+--  create new CallLog
+INSERT INTO 
+    CallLogs(shiftID, dispatcherID, callTimeStamp, responseType, callerFirstName, callerLastName, chiefComplaint, areaCode, phoneNumber, streetAddress, zipCode, phoneNotes)
+VALUES
+    (shiftID = :shiftID, dispatcherID = :dispatcherID, callTimeStamp = :callTimeStamp, responseType = :responseType, callerFirstName = :callerFirstName, callerLastName = :callerLastName, chiefComplaint = :chiefComplaint, areaCode = :areaCode, phoneNumber = :phoneNumber, streetAddress = :streetAddress, zipCode = :zipCode, phoneNotes = :phoneNotes);
 
 /* ---------------------------------------------------------------------------------------------------------------
 Reports
@@ -100,4 +126,25 @@ VALUES
 /* ---------------------------------------------------------------------------------------------------------------
 Employee Shifts
 -------------------------------------------------------------------------------------------------------------------*/
+-- select for table
+SELECT es.employeeID, e.firstName, e.lastName, es.shiftID, s.shiftDate, s.startTime, s.endTime
+FROM  EmployeeShifts es
+INNER JOIN EmergencyResponseEmployees e ON es.employeeID = e.employeeID
+INNER JOIN Shifts s ON es.shiftID = s.shiftID
+ORDER BY es.shiftID;
 
+-- select by search 
+SELECT es.employeeID, e.firstName, e.lastName, es.shiftID, s.shiftDate, s.startTime, s.endTime
+FROM  EmployeeShifts es
+INNER JOIN EmergencyResponseEmployees e ON es.employeeID = e.employeeID
+INNER JOIN Shifts s ON es.shiftID = s.shiftID
+-- THIS WHERE CLAUSE WILL BE NEEDED WHEN ACTUALLY SEARCHING, WHEN WHAT WE ARE 
+-- SEARCHING BY WILL BE SPECIFIED BY THE USER.
+-- WHERE :searchType = :searchParameter
+ORDER BY es.shiftID;
+
+-- create an EmployeeShift (assign an employee to a shift)
+INSERT INTO
+    EmployeeShifts(employeeID, shiftID)
+VALUES
+    (:employeeID, :shiftID)
