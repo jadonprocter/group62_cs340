@@ -8,4 +8,4 @@ let pool = mysql.createPool({
   database        : 'cs340_peifferp'
 });
 
-export default pool
+module.exports.pool = pool
