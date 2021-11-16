@@ -1,29 +1,76 @@
-const pool = require('./dbcon');
-const express =require('express');
+const db = require('./dbcon');
+const express = require('express');
 
-const PORT = 3000;
+const PORT = 4000;
 const app = express();
 
-// SELECT (read) queries METHOD - get
-app.get('/reports', () => {})
-app.get('/employees', () => {})
-app.get('/shifts', () => {})
-app.get('/calllogs', () => {})
-app.get('/reportemployees', () => {})
-app.get('/employeeshifts', () => {})
+app.use(express.json())
 
-// INSERT (create) queries METHOD - post
+/*--------------------------------------------------------------------------------
+REPORT queries 
+get - get reports table
+post - create a new report
+put - update existing report
+delete - delete a report
+---------------------------------------------------------------------------------*/
+app.get('/getreports', (req, res) => {
+    let query1 = 'SELECT reportID, callID, shiftID, authorID, patientFirstName,\
+    patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription \
+    FROM Reports;'
+
+    db.pool.query(query1, function(err, results, fields){
+         if (err) {console.error(err)};
+         console.log(results);
+     })
+     console.log(res)
+})
+
 app.post('/reports', () => {})
-app.post('/employees', () => {})
+
+// to be filled in later:
+app.put('/reports', () => {})
+app.delete('/reports', () => {})
+
+/*--------------------------------------------------------------------------------
+SHIFTS queries 
+get - get shifts table
+post - create a new shift
+---------------------------------------------------------------------------------*/
+app.get('/shifts', () => {})
 app.post('/shifts', () => {})
+
+/*--------------------------------------------------------------------------------
+EMPLOYEES queries 
+get - get employees table
+post - create a new employee
+put - update existing employee
+---------------------------------------------------------------------------------*/
+app.get('/employees', () => {})
+app.post('/employees', () => {})
+
+/*--------------------------------------------------------------------------------
+CALLLOGS queries 
+get - get call log table
+post - create a new call log
+---------------------------------------------------------------------------------*/
+app.get('/calllogs', () => {})
 app.post('/calllogs', () => {})
-app.post('/reportemployees', () => {})
+
+/*--------------------------------------------------------------------------------
+EMPLOYEESHIFTS queries 
+get - get employee shifts table
+post - create a new employeeshift instance
+---------------------------------------------------------------------------------*/
+app.get('/employeeshifts', () => {})
 app.post('/employeeshifts', () => {})
 
-// UPDATE (update) queries METHOD - put
-
-// DELETE (delete) queries METHOD - delete
-app.delete('/reports', () => {})
+/*--------------------------------------------------------------------------------
+REPORTEMPLOYEES queries 
+get - get report employees table
+post - create a new report employees instance
+---------------------------------------------------------------------------------*/
+app.get('/reportemployees', () => {})
+app.post('/reportemployees', () => {})
 
 
 app.listen(PORT, () => {

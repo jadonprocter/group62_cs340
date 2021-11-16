@@ -12,8 +12,13 @@ function ReportsPage({ setReportToEdit }) {
 
   const loadReports = async () => {
     // this async function will be used to grab the reports from the back end
+      const response = await fetch('/getreports')
+      const reports = await response.json()
+      console.log(reports)
+      setafterReports(reports)
+    
     //fake data to populate table
-    const demoReports = [
+    /*const demoReports = [
       {
         reportID: 1234,
         callID: 89743,
@@ -38,9 +43,7 @@ function ReportsPage({ setReportToEdit }) {
         medicationFlag: "True",
         incidentDesc: "She dead",
       },
-    ];
-
-    setafterReports(demoReports);
+    ];*/
   };
 
   useEffect(() => {
