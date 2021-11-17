@@ -28,11 +28,11 @@ function ReportForm({ reportToEdit }) {
   const [patientAge, setpatientAge] = useState(
     reportToEdit != null ? reportToEdit.patientAge : ""
   );
-  const [incidentDesc, setincidentDesc] = useState(
-    reportToEdit != null ? reportToEdit.incidentDesc : ""
+  const [incidentDescription, setincidentDescription] = useState(
+    reportToEdit != null ? reportToEdit.incidentDescription : ""
   );
   const [medicationFlag, setmedicationFlag] = useState(
-    reportToEdit != null ? (reportToEdit.medicationFlag = false) : ""
+    reportToEdit != null ? (reportToEdit.medicationFlag) : "0"
   );
 
   //set the flag for if a new report is being created or if one is being updated
@@ -43,25 +43,21 @@ function ReportForm({ reportToEdit }) {
 
   //define the function to create a new report
   const newReport = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    const formInfo = {callID, shiftID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationFlag, incidentDescription};
+    const response = await fetch('http://flip3.engr.oregonstate.edu:4422/reports', {
+        method: 'POST',
+        body: JSON.stringify(formInfo),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    if (response.status === 201) {
+        alert('Report successfully created!')
+    } else {
+        alert(`Failed to create report. Response code ${response.status}.`)
+    };
     history.push("/reports");
-    return;
-    /* DISABLING UNTIL BACKEND IS UP
-        e.preventDefault()
-        const formInfo = {name, reps, weight, unit, date};
-        const response = await fetch('/exercises', {
-            method: 'POST',
-            body: JSON.stringify(formInfo),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response.status === 201) {
-            alert('Exercise successfully created!')
-        } else {
-            alert(`Failed to create exercise. Response code ${response.status}.`)
-        };
-        history.push("/"); */
   };
 
   //define the function to update an exercise
@@ -170,7 +166,7 @@ function ReportForm({ reportToEdit }) {
             <Form.Check
               label="Medication Administered"
               type="checkbox"
-              value={true}
+              value="1"
               onChange={(e) => setmedicationFlag(e.target.value)}
             />
           </Col>
@@ -181,10 +177,10 @@ function ReportForm({ reportToEdit }) {
             <Form.Label>Incident Description:</Form.Label>
             <Form.Control
               as="textarea"
-              value={incidentDesc}
+              value={incidentDescription}
               placeholder="Record the details of the incident here."
               maxLength={65500}
-              onChange={(e) => setincidentDesc(e.target.value)}
+              onChange={(e) => setincidentDescription(e.target.value)}
             />
           </Col>
         </Row>

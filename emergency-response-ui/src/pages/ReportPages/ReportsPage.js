@@ -12,9 +12,8 @@ function ReportsPage({ setReportToEdit }) {
 
   const loadReports = async () => {
     // this async function will be used to grab the reports from the back end
-      const response = await fetch('/getreports')
+      const response = await fetch('http://flip3.engr.oregonstate.edu:4422/reports')
       const reports = await response.json()
-      console.log(reports)
       setafterReports(reports)
     
     //fake data to populate table

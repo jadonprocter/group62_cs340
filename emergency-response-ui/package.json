@@ -1,6 +1,6 @@
 {
   "name": "group62_cs340",
-  "proxy": "http://localhost:4000",
+  "proxy": "http://flip3.engr.oregonstate.edu:4422",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

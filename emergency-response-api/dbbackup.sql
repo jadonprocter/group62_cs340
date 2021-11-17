@@ -175,7 +175,7 @@ CREATE TABLE `Reports` (
 
 LOCK TABLES `Reports` WRITE;
 /*!40000 ALTER TABLE `Reports` DISABLE KEYS */;
-INSERT INTO `Reports` VALUES (1,1,1,3,'2006-01-03 08:00:00','Paul','Scheer','Male',1,43,'Burns from Fire while escaping an enclosed room'),(2,6,2,2,'2006-01-03 08:00:00','June','Raphael','Female',0,34,'car theft'),(3,9,3,2,'2006-01-03 08:00:00','Tom','Havaford','Male',0,23,'Robbery'),(4,8,4,3,'2006-01-03 08:00:00','Donna','Miegle','Female',1,28,'fire burns'),(5,6,5,1,'2006-01-03 08:00:00','Leslie','Knope','Female',0,33,'Some one help Leslie omg');
+INSERT INTO `Reports` VALUES (1,1,1,3,'2006-01-03 08:00:00','Paul','Scheer','Male',1,1,'Burns from Fire while escaping an enclosed room'),(2,6,2,2,'2006-01-03 08:00:00','June','Raphael','Female',0,0,'car theft'),(3,9,3,2,'2006-01-03 08:00:00','Tom','Havaford','Male',0,0,'Robbery'),(4,8,4,3,'2006-01-03 08:00:00','Donna','Miegle','Female',1,0,'fire burns'),(5,6,5,1,'2006-01-03 08:00:00','Leslie','Knope','Female',0,1,'Some one help Leslie omg');
 /*!40000 ALTER TABLE `Reports` ENABLE KEYS */;
 UNLOCK TABLES;
 

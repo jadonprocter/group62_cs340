@@ -1,10 +1,12 @@
 const db = require('./dbcon');
 const express = require('express');
+const cors = require('cors')
 
-const PORT = 4000;
+const PORT = 4422;
 const app = express();
 
 app.use(express.json())
+app.use(cors())
 
 /*--------------------------------------------------------------------------------
 REPORT queries 
@@ -13,19 +15,28 @@ post - create a new report
 put - update existing report
 delete - delete a report
 ---------------------------------------------------------------------------------*/
-app.get('/getreports', (req, res) => {
+app.get('/reports', (req, res) => {
     let query1 = 'SELECT reportID, callID, shiftID, authorID, patientFirstName,\
     patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription \
     FROM Reports;'
 
     db.pool.query(query1, function(err, results, fields){
-         if (err) {console.error(err)};
-         console.log(results);
+        if (err){console.error(err)}
+        res.send(results)
      })
-     console.log(res)
 })
 
-app.post('/reports', () => {})
+app.post('/reports', (req, res) => {
+    console.log(req.body)
+    let postVals = req.body
+    db.pool.query('INSERT INTO Reports VALUES = ?', postVals, function(err, results, fields) {
+        if (err) {
+            console.error(err);
+            res.send({'Error': 'Error creating report', 'Error Info': err})
+        }
+        res.status(200)
+    })
+})
 
 // to be filled in later:
 app.put('/reports', () => {})
