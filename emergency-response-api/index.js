@@ -27,7 +27,6 @@ app.get('/reports', (req, res) => {
 })
 
 app.post('/reports', (req, res) => {
-    console.log(req.body)
     let postVals = req.body
     db.pool.query('INSERT INTO Reports SET ?', postVals, function(err, results, fields) {
         if (err) {
