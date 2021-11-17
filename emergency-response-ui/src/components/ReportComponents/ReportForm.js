@@ -23,7 +23,7 @@ function ReportForm({ reportToEdit }) {
     reportToEdit != null ? reportToEdit.patientLastName : ""
   );
   const [patientGender, setpatientGender] = useState(
-    reportToEdit != null ? reportToEdit.patientGender : ""
+    reportToEdit != null ? reportToEdit.patientGender : "Male"
   );
   const [patientAge, setpatientAge] = useState(
     reportToEdit != null ? reportToEdit.patientAge : ""
@@ -31,8 +31,8 @@ function ReportForm({ reportToEdit }) {
   const [incidentDescription, setincidentDescription] = useState(
     reportToEdit != null ? reportToEdit.incidentDescription : ""
   );
-  const [medicationFlag, setmedicationFlag] = useState(
-    reportToEdit != null ? (reportToEdit.medicationFlag) : "0"
+  const [medicationAdministered, setmedicationAdministered] = useState(
+    reportToEdit != null ? (reportToEdit.medicationAdministered) : "0"
   );
 
   //set the flag for if a new report is being created or if one is being updated
@@ -44,7 +44,7 @@ function ReportForm({ reportToEdit }) {
   //define the function to create a new report
   const newReport = async (e) => {
     e.preventDefault()
-    const formInfo = {callID, shiftID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationFlag, incidentDescription};
+    const formInfo = {shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
     const response = await fetch('http://flip3.engr.oregonstate.edu:4422/reports', {
         method: 'POST',
         body: JSON.stringify(formInfo),
@@ -146,8 +146,8 @@ function ReportForm({ reportToEdit }) {
               value={patientGender}
               onChange={(e) => setpatientGender(e.target.value)}
             >
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
             </Form.Select>
           </Col>
           <Col>
@@ -167,7 +167,7 @@ function ReportForm({ reportToEdit }) {
               label="Medication Administered"
               type="checkbox"
               value="1"
-              onChange={(e) => setmedicationFlag(e.target.value)}
+              onChange={(e) => setmedicationAdministered(e.target.value)}
             />
           </Col>
         </Row>

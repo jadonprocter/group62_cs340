@@ -29,12 +29,12 @@ app.get('/reports', (req, res) => {
 app.post('/reports', (req, res) => {
     console.log(req.body)
     let postVals = req.body
-    db.pool.query('INSERT INTO Reports VALUES = ?', postVals, function(err, results, fields) {
+    db.pool.query('INSERT INTO Reports SET ?', postVals, function(err, results, fields) {
         if (err) {
             console.error(err);
             res.send({'Error': 'Error creating report', 'Error Info': err})
         }
-        res.status(200)
+        res.status(201).json(results)
     })
 })
 
