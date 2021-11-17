@@ -15,6 +15,7 @@ post - create a new report
 put - update existing report
 delete - delete a report
 ---------------------------------------------------------------------------------*/
+//text for commit
 app.get('/reports', (req, res) => {
     let query1 = 'SELECT reportID, callID, shiftID, authorID, patientFirstName,\
     patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription \
