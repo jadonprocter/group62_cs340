@@ -10,30 +10,10 @@ function EmployeeShiftPage() {
   const [search, setSearch] = useState("");
   const [searchBy, setSearchBy] = useState();
 
-  const getEmployeeShifts = () => {
-    const demoEmployeeShifts = () => {
-      return [
-        {
-          employeeID: 1,
-          employeeFirstName: "philip",
-          employeeLastName: "peiffer",
-          shiftID: 1,
-          startDate: "2021/10/25",
-          startTime: "05:00",
-          endTime: "17:00",
-        },
-        {
-          employeeID: 2,
-          employeeFirstName: "jadon",
-          employeeLastName: "procter",
-          shiftID: 2,
-          startDate: "2021/10/26",
-          startTime: "05:00",
-          endTime: "17:00",
-        },
-      ];
-    };
-    setEmployeeShifts(demoEmployeeShifts());
+  const loadEmployeeShifts = async(e) => {
+    const getEmployeeShifts = await fetch('http://flip3.engr.oregonstate.edu:4422/employeeshifts');
+    const theEmployeeShifts = await getEmployeeShifts.json();
+    setEmployeeShifts(theEmployeeShifts);
   };
 
   const onSearch = () => {
@@ -51,7 +31,7 @@ function EmployeeShiftPage() {
   };
 
   useEffect(() => {
-    getEmployeeShifts();
+    loadEmployeeShifts();
   }, []);
 
   return (

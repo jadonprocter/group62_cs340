@@ -7,32 +7,10 @@ import { Button } from "react-bootstrap";
 function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
   const [employees, setEmployees] = useState([]);
   const history = useHistory();
-  const getEmployees = async () => {
-    const demoEmployees = () => {
-      return [
-        {
-          employeeID: 1,
-          firstName: "Philip",
-          lastName: "Peiffer",
-          role: "Dispatcher",
-          compensationRate: 20.25,
-          areaCode: "111",
-          phoneNumber: "222-3333",
-          employeeEmail: "philippeiffer@fakeemails.com",
-        },
-        {
-          employeeID: 2,
-          firstName: "Jadon",
-          lastName: "Procter",
-          role: "Ambulance Driver",
-          compensationRate: 18.25,
-          areaCode: "333",
-          phoneNumber: "111-2222",
-          employeeEmail: "jadonprocter@fakeemails.com",
-        },
-      ];
-    };
-    setEmployees(demoEmployees());
+  const loadEmployees = async () => {
+    const getEmployees = await fetch('http://flip3.engr.oregonstate.edu:4422/employees');
+    const theEmployees = await getEmployees.json()
+    setEmployees(theEmployees);
   };
 
   const editEmployee = async (employee) => {
@@ -41,7 +19,7 @@ function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
   };
 
   useEffect(() => {
-    getEmployees();
+    loadEmployees();
   }, []);
 
   return (

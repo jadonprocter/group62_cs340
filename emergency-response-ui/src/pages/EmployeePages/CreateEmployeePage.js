@@ -12,9 +12,22 @@ function CreateEmployeePage() {
 
   const history = useHistory();
 
-  const createEmployee = (newEmployeeObj) => {
-    console.log(newEmployeeObj);
-    alert("New Employee Added (Not really there is no back end yet lol)");
+  const createEmployee = async (e) => {
+    e.preventDefault();
+    const newEmployee = {firstName, lastName, role, compensationRate, areaCode, phoneNumber, employeeEmail}
+    const response = await fetch('http://flip3.engr.oregonstate.edu:4422/employees', {
+      method: 'POST', 
+      body: JSON.stringify(newEmployee),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    if (response.status === 201) {
+      alert('New Employee successfully added!')
+    } 
+    else {
+        alert(`Failed to add new employee. Response code: ${response.status}.`)
+    };
     history.push("/employees");
   };
 
@@ -52,13 +65,13 @@ function CreateEmployeePage() {
           </Form.Select>
         </Col>
         <Col>
-          <Form.Label>Role:</Form.Label>
-          <Form.Select onChange={(e) => setRole(e.target.value)}>
-            <option value="dispatcher">Dispatcher</option>
-            <option value="ambulance-driver">Ambulance Driver</option>
-            <option value="paramedic">Paramedic</option>
-            <option value="trainee">Trainee</option>
-          </Form.Select>
+          <Form.Label>Compensation Rate:</Form.Label>
+          <Form.Control
+            type="Number"
+            value={compensationRate}
+            placeholder="10"
+            onChange={(e) => setCompensationRate(e.target.value)}
+          />
         </Col>
       </Row>
       <br />
@@ -99,17 +112,7 @@ function CreateEmployeePage() {
         <Col>
           <Button
             variant="primary"
-            onClick={() =>
-              createEmployee({
-                firstName,
-                lastName,
-                role,
-                compensationRate,
-                areaCode,
-                phoneNumber,
-                employeeEmail,
-              })
-            }
+            onClick={ (e) => createEmployee(e) }
           >
             Add New Employee
           </Button>

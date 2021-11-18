@@ -19,11 +19,24 @@ function EditEmployeePage({ employeeToEdit }) {
 
   const history = useHistory();
 
-  const editEmployee = (updatedEmployeeObj) => {
-    console.log(updatedEmployeeObj);
-    alert("Employee Updated (Not really there is no backend yet lol)");
+  const editEmployee = async (e) => {
+    e.preventDefault()
+    const editedEmployee = {employeeID, firstName, lastName, role, compensationRate, areaCode, phoneNumber, employeeEmail}
+    const response = await fetch('http://flip3.engr.oregonstate.edu:4422/employees', {
+      method: 'PUT',
+      body: JSON.stringify(editedEmployee),
+      header: {
+        'Content-Type': 'application/json',
+      }
+    })
+    if (response === 204) {
+      alert(`Employee with id: ${employeeID}, has been updated`);
+    }  
+    else {
+      alert("unable to update employee");
+    }
     history.push("/employees");
-    // function then makes a call to backend to alter the row in the table with the corresponding id
+    
   };
 
   return (
@@ -101,17 +114,8 @@ function EditEmployeePage({ employeeToEdit }) {
         <Col>
           <Button
             variant="primary"
-            onClick={() =>
-              editEmployee({
-                employeeID,
-                firstName,
-                lastName,
-                role,
-                compensationRate,
-                areaCode,
-                phoneNumber,
-                employeeEmail,
-              })
+            onClick={(e) =>
+              editEmployee(e)
             }
           >
             SUBMIT
