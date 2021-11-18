@@ -48,8 +48,25 @@ SHIFTS queries
 get - get shifts table
 post - create a new shift
 ---------------------------------------------------------------------------------*/
-app.get('/shifts', () => {})
-app.post('/shifts', () => {})
+app.get('/shifts', (req, res) => {
+    const query1 = 'SELECT shiftID, shiftDate, startTime, endTime, holidayPay\
+                    FROM Shifts;';
+
+    db.pool.query(query1, function(err, results){
+        if (err){console.error(err)}
+        res.send(results)
+     })
+})
+app.post('/shifts', (req, res) => {
+    const postVals = req.body
+    db.pool.query('INSERT INTO Shifts SET ?', postVals, function(err, results) {
+        if (err) {
+            console.error(err);
+            res.send({'Error': 'Error creating shift', 'Error Info': err})
+        }
+        res.status(201).json(results)
+    })
+})
 
 /*--------------------------------------------------------------------------------
 EMPLOYEES queries 
@@ -115,7 +132,17 @@ app.get('/calllogs', (req, res) => {
             res.send(results)
     })
 })
-app.post('/calllogs', () => {})
+app.post('/calllogs', (req, res) => {
+    const postVals = req.body
+    db.pool.query('INSERT INTO CallLogs SET ?', postVals, (err, results) => {
+        if (err) {
+            console.log('There was an  error createing the Call Log: ', err);
+        }
+        else {
+            res.status(201).json(results);
+        }
+    })
+})
 
 /*--------------------------------------------------------------------------------
 EMPLOYEESHIFTS queries 
@@ -134,15 +161,45 @@ app.get('/employeeshifts', (req, res) => {
         res.send(results)
      })
 })
-app.post('/employeeshifts', () => {})
+app.post('/employeeshifts', (req, res) => {
+    const postVals = req.body
+    db.pool.query('INSERT INTO EmployeeShifts SET ?', postVals, (err, results) => {
+        if (err) {
+            console.log('There was an error assigning the employeee to the shift: ', err);
+        }
+        else {
+            res.status(201).json(results);
+        }
+    })
+})
 
 /*--------------------------------------------------------------------------------
 REPORTEMPLOYEES queries 
 get - get report employees table
 post - create a new report employees instance
 ---------------------------------------------------------------------------------*/
-app.get('/reportemployees', () => {})
-app.post('/reportemployees', () => {})
+app.get('/reportemployees', (req, res) => {
+    const query1 = `SELECT re.employeeID, e.firstName, e.lastName, re.reportID, r.reportTimeStamp 
+                    FROM ReportEmployees re
+                    INNER JOIN EmergencyResponseEmployees e ON re.employeeID = e.employeeID
+                    INNER JOIN Reports r ON re.reportID = r.reportID;`;
+
+    db.pool.query(query1, function(err, results){
+        if (err){console.error(err)}
+        res.send(results)
+     })
+})
+
+app.post('/reportemployees', (req, res) => {
+    const postVals = req.body
+    db.pool.query('INSERT INTO ReportEmployees SET ?', postVals, function(err, results) {
+        if (err) {
+            console.error(err);
+            res.send({'Error': 'Error creating employee', 'Error Info': err})
+        }
+        res.status(201).json(results)
+    })
+})
 
 
 app.listen(PORT, () => {
