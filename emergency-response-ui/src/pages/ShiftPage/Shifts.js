@@ -6,26 +6,14 @@ function ShiftsPage() {
     const [shifts, setShifts] = useState([])
 
     //grab shifts from backend
-    const getShifts = () => {
-        //dummy data to start
-        setShifts([{
-            shiftID: 12234,
-            startDate: '2021/10/26',
-            startTime: '05:00',
-            endTime: '17:00',
-            holidayPay: "True"
-        },
-        {
-            shiftID: 2342,
-            startDate: '2021/10/26',
-            startTime: '17:00',
-            endTime: '5:00',
-            holidayPay: "True"
-        }])
+    const loadShifts = async () => {
+        const getShifts = await fetch('http://flip3.engr.oregonstate.edu:4422/shifts');
+        const theShifts = await getShifts.json();
+        setShifts(theShifts);
     }
 
     useEffect(() => {
-        getShifts()
+        loadShifts()
     },[])
 
     return (

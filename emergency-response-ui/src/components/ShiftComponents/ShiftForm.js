@@ -4,35 +4,29 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 function ShiftForm() {
   const history = useHistory();
-
-  //define starting conditions for the form based on if a report was passed in
-
-  const [startDate, setstartDate] = useState("");
+  const [shiftDate, setShiftDate] = useState("");
   const [startTime, setstartTime] = useState("");
   const [endTime, setendTime] = useState("");
-  const [holidayPay, setholidayPay] = useState("");
+  const [holidayPay, setholidayPay] = useState(false);
 
   //define the function to create a new report
   const newShift = async (e) => {
     e.preventDefault();
-    history.push("/shifts");
-    return;
-    /* DISABLING UNTIL BACKEND IS UP
-        e.preventDefault()
-        const formInfo = {name, reps, weight, unit, date};
-        const response = await fetch('/exercises', {
-            method: 'POST',
-            body: JSON.stringify(formInfo),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response.status === 201) {
-            alert('Exercise successfully created!')
-        } else {
-            alert(`Failed to create exercise. Response code ${response.status}.`)
-        };
-        history.push("/"); */
+    const newShift = {shiftDate, startTime, endTime, holidayPay};
+    const response = await fetch('http://flip3.engr.oregonstate.edu:4422/shifts', {
+      method: 'POST', 
+      body: JSON.stringify(newShift),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    if (response.status === 201) {
+      alert('New Shift successfully added!')
+    } 
+    else {
+        alert(`Failed to add new shift. Response code: ${response.status}.`)
+    };
+    history.go(0);
   };
 
   return (
@@ -44,8 +38,8 @@ function ShiftForm() {
             <Form.Label>Start Date:</Form.Label>
             <Form.Control
               type="date"
-              value={startDate}
-              onChange={(e) => setstartDate(e.target.value)}
+              value={shiftDate}
+              onChange={(e) => setShiftDate(e.target.value)}
             />
           </Col>
 
@@ -73,7 +67,7 @@ function ShiftForm() {
             <Form.Check
               type="checkbox"
               value={holidayPay}
-              onChange={(e) => setholidayPay(e.target.value)}
+              onChange={() => setholidayPay(!holidayPay)}
               label="Holiday Pay"
             />
           </Col>

@@ -5,10 +5,10 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 function CreateCallLogPage() {
   const history = useHistory();
-  const [callID, setCallID] = useState();
+  // const [callID, setCallID] = useState();
   const [shiftID, setShiftID] = useState();
   const [dispatcherID, setDispatcherID] = useState();
-  const [timeStamp, setTimeStamp] = useState();
+  const [callTimeStamp, setCallTimeStamp] = useState();
   const [responseType, setResponseType] = useState();
   const [callerFirstName, setCallerFirstName] = useState();
   const [callerLastName, setCallerLastName] = useState();
@@ -18,18 +18,37 @@ function CreateCallLogPage() {
   const [streetAddress, setStreetAddress] = useState();
   const [zipCode, setZipCode] = useState();
   const [phoneNotes, setPhoneNotes] = useState();
+  
+  const getTimeStamp = () => {
+    const date = new Date();
+    const stringDate = date.toISOString();
+    setCallTimeStamp(stringDate)
+  }
 
-  const createCallLog = (newCallLogObj) => {
-    console.log(newCallLogObj);
-    setTimeStamp("default");
-    alert("Call Log Created (not really though there is no backend yet)");
+  const createCallLog = async (e) => {
+    getTimeStamp();
+    e.preventDefault();
+    const newCallLog = {shiftID, dispatcherID, callTimeStamp, responseType, callerFirstName, callerLastName, chiefComplaint, areaCode, phoneNumber, streetAddress, zipCode, phoneNotes};
+    const response = await fetch('http://flip3.engr.oregonstate.edu:4422/calllogs', {
+      method: 'POST',
+      body: JSON.stringify(newCallLog),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    if (response.status === 201) {
+      alert('New Call Log created!')
+    } 
+    else {
+        alert(`Failed to create call log. Response code: ${response.status}.`)
+    };
     history.push("/call-logs");
   };
 
   return (
     <Form>
       <Row>
-        <Col>
+        {/* <Col>
           <Form.Label>Call ID:</Form.Label>
           <Form.Control
             type="number"
@@ -37,7 +56,7 @@ function CreateCallLogPage() {
             placeholder="Call ID"
             onChange={(e) => setCallID(e.target.value)}
           />
-        </Col>
+        </Col> */}
         <Col>
           <Form.Label>Shift ID:</Form.Label>
           <Form.Control
@@ -161,22 +180,8 @@ function CreateCallLogPage() {
         <Col>
           <Button
             variant="primary"
-            onClick={() =>
-              createCallLog({
-                callID,
-                shiftID,
-                dispatcherID,
-                timeStamp,
-                responseType,
-                callerFirstName,
-                callerLastName,
-                chiefComplaint,
-                areaCode,
-                phoneNumber,
-                streetAddress,
-                zipCode,
-                phoneNotes,
-              })
+            onClick={(e) =>
+              createCallLog(e)
             }
           >
             Create New Call Log

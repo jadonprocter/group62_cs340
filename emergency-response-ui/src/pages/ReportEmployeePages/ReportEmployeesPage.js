@@ -5,31 +5,15 @@ import ReportEmployeesTable from "../../components/ReportEmployeesComponents/Rep
 function ReportEmployeesPage() {
     const [reportEmployees, setreportEmployees] = useState([])
 
-    const getReportEmployees = () => {
+    const loadReportEmployees = async() => {
         //use this function to load the data from SQL when database connected
-        const dummydata = [
-            {
-                employeeID: 342,
-                employeeFirstName: 'Philip',
-                employeeLastName: 'Peiffer',
-                reportID: 4323,
-                reportDate: '2021/11/02',
-                reportTime: '11:00 AM'
-            },
-            {
-                employeeID: 23532,
-                employeeFirstName: 'Jadon',
-                employeeLastName: 'Procter',
-                reportID: 4323,
-                reportDate: '2021/11/02',
-                reportTime: '11:00 AM'
-            }
-        ]
-        setreportEmployees(dummydata)
+        const getReportEmployees = await fetch('http://flip3.engr.oregonstate.edu:4422/reportemployees');
+        const theReportEmployees = await getReportEmployees.json();
+        setreportEmployees(theReportEmployees)
     }
 
     useEffect(() => {
-        getReportEmployees()
+        loadReportEmployees()
     }, [])
 
     return(

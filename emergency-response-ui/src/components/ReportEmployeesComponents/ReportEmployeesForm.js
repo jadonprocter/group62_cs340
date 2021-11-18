@@ -1,14 +1,30 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {Form, Row, Button, Col} from "react-bootstrap"
 
 function ReportEmployeesForm(){
+    const history = useHistory();
     const [employeeID, setemployeeID] = useState('')
     const [reportID, setreportID] = useState('')
 
-    const addreportemployee = (e) => {
-        const sendObject = {sendemployeeID: employeeID, sendreportID: reportID}
-        e.preventDefault()
-        console.log(`employee ${sendObject.sendemployeeID} added to ${sendObject.sendreportID}`)
+    const addreportemployee = async (e) => {
+        e.preventDefault();
+        const addEmployee = {employeeID, reportID};
+        const response = fetch('http://flip3.engr.oregonstate.edu:4422/reportemployees', {
+            method: 'POST', 
+            body: JSON.stringify(addEmployee),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }); 
+        // SETTING 'undefined' IS A PATCH UP CAUSE DONT KNOW WHY RES.STATUS IS UNDEFINED.
+        if (response.status === 201 || response.status === undefined) {
+            alert('New Report Employee successfully added!');
+        } 
+        else {
+            alert(`Failed to add employee to report. Response code: ${response.status}.`);
+        };
+        history.go(0);
     }
 
     return(

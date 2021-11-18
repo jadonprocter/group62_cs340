@@ -1,15 +1,31 @@
 import React from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 function AssignEmployeeShiftForm() {
+  const history = useHistory();
   const [employeeID, setEmployeeID] = useState();
   const [shiftID, setShiftID] = useState();
 
-  const assignShift = () => {
-    alert("Not implemented (there is no backend yet)");
-    // fetch and create
-    return;
+  const assignShift = async (e) => {
+    e.preventDefault();
+    const assignEmployee = {employeeID, shiftID};
+    const response = fetch('http://flip3.engr.oregonstate.edu:4422/employeeshifts', {
+      method: 'POST', 
+      body: JSON.stringify(assignEmployee),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    // STATUS CODE COMING BACK 'undefined' FOR SOME REASON -- THIS IS A PATCH.
+    if (response.status === 201 || response.status === undefined) {
+      alert('Employee successfully assigned to shift!')
+    } 
+    else {
+        alert(`Failed to assign employee to shift. Response code: ${response.status}.`)
+    };
+    history.go(0);
   };
   return (
     <Form>
@@ -33,7 +49,7 @@ function AssignEmployeeShiftForm() {
         </Col>
       </Row>
       <br />
-      <Button variant="primary" onClick={() => assignShift()}>
+      <Button variant="primary" onClick={(e) => assignShift(e)}>
         Assign
       </Button>
     </Form>
