@@ -6,30 +6,32 @@ function ReportForm({ reportToEdit }) {
   const history = useHistory();
 
   //define starting conditions for the form based on if a report was passed in
-
+  const [reportID, setreportID] = useState(
+    reportToEdit != null ? reportToEdit.reportID : null
+  );
   const [callID, setcallID] = useState(
-    reportToEdit != null ? reportToEdit.callID : ""
+    reportToEdit != null ? reportToEdit.callID : null
   );
   const [shiftID, setshiftID] = useState(
-    reportToEdit != null ? reportToEdit.shiftID : ""
+    reportToEdit != null ? reportToEdit.shiftID : null
   );
   const [authorID, setauthorID] = useState(
-    reportToEdit != null ? reportToEdit.authorID : "lb"
+    reportToEdit != null ? reportToEdit.authorID : null
   );
   const [patientFirstName, setpatientFirstName] = useState(
-    reportToEdit != null ? reportToEdit.patientFirstName : ""
+    reportToEdit != null ? reportToEdit.patientFirstName : null
   );
   const [patientLastName, setpatientLastName] = useState(
-    reportToEdit != null ? reportToEdit.patientLastName : ""
+    reportToEdit != null ? reportToEdit.patientLastName : null
   );
   const [patientGender, setpatientGender] = useState(
     reportToEdit != null ? reportToEdit.patientGender : "Male"
   );
   const [patientAge, setpatientAge] = useState(
-    reportToEdit != null ? reportToEdit.patientAge : ""
+    reportToEdit != null ? reportToEdit.patientAge : null
   );
   const [incidentDescription, setincidentDescription] = useState(
-    reportToEdit != null ? reportToEdit.incidentDescription : ""
+    reportToEdit != null ? reportToEdit.incidentDescription : null
   );
   const [medicationAdministered, setmedicationAdministered] = useState(
     reportToEdit != null ? (reportToEdit.medicationAdministered) : "0"
@@ -41,11 +43,19 @@ function ReportForm({ reportToEdit }) {
     newFlag = true;
   }
 
+  function changeMedFlag() {
+    if (medicationAdministered === 0) {
+      setmedicationAdministered(1)
+    } else {
+      setmedicationAdministered(0)
+    }
+  }
+
   //define the function to create a new report
   const newReport = async (e) => {
     e.preventDefault()
     const formInfo = {shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
-    const response = await fetch('http://flip3.engr.oregonstate.edu:4422/reports', {
+    const response = await fetch('http://flip3.engr.oregonstate.edu:4423/reports', {
         method: 'POST',
         body: JSON.stringify(formInfo),
         headers: {
@@ -55,6 +65,7 @@ function ReportForm({ reportToEdit }) {
     if (response.status === 201) {
         alert('Report successfully created!')
     } else {
+        console.log(response)
         alert(`Failed to create report. Response code ${response.status}.`)
     };
     history.push("/reports");
@@ -63,25 +74,20 @@ function ReportForm({ reportToEdit }) {
   //define the function to update an exercise
   const updateReport = async (e) => {
     e.preventDefault();
+    const updateObject = {reportID, shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
+    const response = await fetch('http://flip3.engr.oregonstate.edu:4423/reports', {
+        method: 'PUT',
+        body: JSON.stringify(updateObject),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    if (response.status === 200) {
+        alert('Report successfully updated!')
+    } else {
+        alert(`Failed to update report. Response code ${response.status}.`)
+    };
     history.push("/reports");
-    return;
-    /* DISABLING UNTIL BACKEND IS UP
-        e.preventDefault()
-        const modExercise = {name, reps, weight, unit, date}
-        //fetch the PUT route from express server
-        const response = await fetch(`/exercises/${exercisetoEdit._id}`, {
-            method: 'PUT', 
-            body: JSON.stringify(modExercise),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        if (response.status === 200) {
-            alert('Successfully updated exercise!')
-        } else {
-           alert(`Failed to update the exercise with ID ${exercisetoEdit._id}, status code ${response.status}`)
-        }
-        history.push('/') */
   };
 
   return (
@@ -167,7 +173,7 @@ function ReportForm({ reportToEdit }) {
               label="Medication Administered"
               type="checkbox"
               value="1"
-              onChange={(e) => setmedicationAdministered(e.target.value)}
+              onChange={changeMedFlag}
             />
           </Col>
         </Row>

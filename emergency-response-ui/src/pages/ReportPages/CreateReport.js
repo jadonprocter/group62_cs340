@@ -2,10 +2,10 @@ import React from "react";
 import ReportForm from "../../components/ReportComponents/ReportForm";
 
 function CreateReport({ reportToEdit }) {
-  if (reportToEdit === null) {
+  if (reportToEdit == null) {
     return (
       <div>
-        <h1>Creating New Report</h1>
+        <h1>Create a New Report</h1>
         <ReportForm></ReportForm>
       </div>
     );
