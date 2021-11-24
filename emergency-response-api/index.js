@@ -39,11 +39,10 @@ app.post('/reports', (req, res) => {
     })
 })
 
-// to be filled in later:
-app.put('/reports', (req, res) => {
+app.put('/reports/:reportID', (req, res) => {
     let updateVals = req.body
-    let updatequery = 'UPDATE Reports SET ? WHERE reportID = ?'
-    db.pool.query(updatequery, [updateVals, updateVals.reportID], function(err, results){
+    let updatequery = 'UPDATE Reports SET ? WHERE ?'
+    db.pool.query(updatequery, [updateVals, req.params], function(err, results){
         if(err) {
             console.error(err);
             res.status(500)
@@ -53,7 +52,22 @@ app.put('/reports', (req, res) => {
     })
 })
 
-app.delete('/reports', () => {})
+app.delete('/reports/:reportID', (req, res) => {
+    // grab the reportID OBJECT from the parameters object
+    let reportID = req.params
+    let deletequery = 'DELETE FROM Reports WHERE ?'
+    db.pool.query(deletequery, reportID, function(err, results) {
+        if (err) {
+            console.error(err);
+            res.status(500)
+            res.send({"Error deleting report": err})
+        } else if (results.affectedRows >= 1){
+            res.status(204).send()
+        } else {
+            res.status(404).json({"Report not found": results})
+        }
+    })
+})
 
 /*--------------------------------------------------------------------------------
 SHIFTS queries 

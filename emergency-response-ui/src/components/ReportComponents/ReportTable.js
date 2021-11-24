@@ -37,7 +37,7 @@ function ReportTable({ afterreports, editReport, deleteReport }) {
                 </td>
                 <td>
                   <Button
-                    onClick={() => deleteReport(afterreport)}
+                    onClick={() => deleteReport(afterreport.reportID)}
                     variant="secondary"
                     size="sm"
                   >

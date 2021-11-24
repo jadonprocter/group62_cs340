@@ -7,51 +7,29 @@ import { Button } from "react-bootstrap";
 
 function ReportsPage({ setReportToEdit }) {
   const history = useHistory();
+  const port = 4423
   // define reports to pass in to table
   const [afterreports, setafterReports] = useState([]);
 
   const loadReports = async () => {
     // this async function will be used to grab the reports from the back end
-      const response = await fetch('http://flip3.engr.oregonstate.edu:4423/reports')
+      const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports`)
       const reports = await response.json()
       setafterReports(reports)
-    
-    //fake data to populate table
-    /*const demoReports = [
-      {
-        reportID: 1234,
-        callID: 89743,
-        shiftID: 1234,
-        authorID: 1234,
-        patientFirstName: "John",
-        patientLastName: "Doe",
-        patientGender: "Male",
-        patientAge: "25",
-        medicationFlag: "False",
-        incidentDesc: "At approximately 12:15 pm we arrived on scene...",
-      },
-      {
-        reportID: 2352,
-        callID: 987234,
-        shiftID: 9875,
-        authorID: 2134,
-        patientFirstName: "Jane",
-        patientLastName: "Whoever",
-        patientGender: "Female",
-        patientAge: "82",
-        medicationFlag: "True",
-        incidentDesc: "She dead",
-      },
-    ];*/
   };
 
   useEffect(() => {
     loadReports();
   }, []);
 
-  const deleteReport = () => {
-    alert('Report deleted')
-    history.push("/reports")
+  const deleteReport = async (reportID) => {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports/${reportID}`, {method: 'DELETE'})
+    if (response.status === 204) {
+      alert(`Report ${reportID} deleted`)
+    } else {
+      alert(`Unable to delete report ${reportID}`)
+    }
+    history.go(0)
   }
 
   function editReport(reportToEdit) {

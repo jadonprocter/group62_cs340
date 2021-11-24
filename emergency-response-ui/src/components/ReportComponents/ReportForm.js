@@ -4,11 +4,9 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 function ReportForm({ reportToEdit }) {
   const history = useHistory();
+  const port = 4423
 
   //define starting conditions for the form based on if a report was passed in
-  const [reportID, setreportID] = useState(
-    reportToEdit != null ? reportToEdit.reportID : null
-  );
   const [callID, setcallID] = useState(
     reportToEdit != null ? reportToEdit.callID : null
   );
@@ -34,7 +32,7 @@ function ReportForm({ reportToEdit }) {
     reportToEdit != null ? reportToEdit.incidentDescription : null
   );
   const [medicationAdministered, setmedicationAdministered] = useState(
-    reportToEdit != null ? (reportToEdit.medicationAdministered) : "0"
+    reportToEdit != null ? (reportToEdit.medicationAdministered) : "1"
   );
 
   //set the flag for if a new report is being created or if one is being updated
@@ -43,19 +41,11 @@ function ReportForm({ reportToEdit }) {
     newFlag = true;
   }
 
-  function changeMedFlag() {
-    if (medicationAdministered === 0) {
-      setmedicationAdministered(1)
-    } else {
-      setmedicationAdministered(0)
-    }
-  }
-
   //define the function to create a new report
   const newReport = async (e) => {
     e.preventDefault()
     const formInfo = {shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
-    const response = await fetch('http://flip3.engr.oregonstate.edu:4423/reports', {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports`, {
         method: 'POST',
         body: JSON.stringify(formInfo),
         headers: {
@@ -71,11 +61,11 @@ function ReportForm({ reportToEdit }) {
     history.push("/reports");
   };
 
-  //define the function to update an exercise
+  //define the function to update a report
   const updateReport = async (e) => {
     e.preventDefault();
-    const updateObject = {reportID, shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
-    const response = await fetch('http://flip3.engr.oregonstate.edu:4423/reports', {
+    const updateObject = {shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports/${reportToEdit.reportID}`, {
         method: 'PUT',
         body: JSON.stringify(updateObject),
         headers: {
@@ -113,8 +103,7 @@ function ReportForm({ reportToEdit }) {
             />
           </Col>
           <Col>
-            <Form.Label></Form.Label>
-            Author ID:
+            <Form.Label>Author ID:</Form.Label>
             <Form.Control
               type="number"
               value={authorID}
@@ -169,13 +158,16 @@ function ReportForm({ reportToEdit }) {
         <br />
         <Row>
           <Col>
-            <Form.Check
-              label="Medication Administered"
-              type="checkbox"
-              value="1"
-              onChange={changeMedFlag}
-            />
+            <Form.Label>Medication Administered:</Form.Label>
+              <Form.Select
+                value={medicationAdministered}
+                onChange={(e) => setmedicationAdministered(e.target.value)}
+              >
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </Form.Select>
           </Col>
+          <Col></Col>
         </Row>
         <br />
         <Row>
