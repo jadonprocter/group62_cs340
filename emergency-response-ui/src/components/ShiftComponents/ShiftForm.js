@@ -3,17 +3,18 @@ import { useHistory } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 function ShiftForm() {
+  const port = 4423
   const history = useHistory();
-  const [shiftDate, setShiftDate] = useState("");
-  const [startTime, setstartTime] = useState("");
-  const [endTime, setendTime] = useState("");
+  const [shiftDate, setShiftDate] = useState(null);
+  const [startTime, setstartTime] = useState(null);
+  const [endTime, setendTime] = useState(null);
   const [holidayPay, setholidayPay] = useState(false);
 
   //define the function to create a new report
   const newShift = async (e) => {
     e.preventDefault();
     const newShift = {shiftDate, startTime, endTime, holidayPay};
-    const response = await fetch('http://flip3.engr.oregonstate.edu:4422/shifts', {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/shifts`, {
       method: 'POST', 
       body: JSON.stringify(newShift),
       headers: {

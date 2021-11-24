@@ -88,9 +88,9 @@ app.post('/shifts', (req, res) => {
     db.pool.query('INSERT INTO Shifts SET ?', postVals, function(err, results) {
         if (err) {
             console.error(err);
+            res.status(500)
             res.send({'Error': 'Error creating shift', 'Error Info': err})
-        }
-        res.status(201).json(results)
+        } else {res.status(201).json(results)}
     })
 })
 

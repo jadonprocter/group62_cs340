@@ -8,7 +8,11 @@ function ShiftsPage() {
     //grab shifts from backend
     const loadShifts = async () => {
         const getShifts = await fetch('http://flip3.engr.oregonstate.edu:4422/shifts');
+        // convert to JS object
         const theShifts = await getShifts.json();
+        for(let shift of theShifts) {
+            shift.shiftDate = shift.shiftDate.slice(0,10)
+        };
         setShifts(theShifts);
     }
 
