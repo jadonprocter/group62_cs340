@@ -23,8 +23,39 @@ app.get('/reports', (req, res) => {
     FROM Reports;'
 
     db.pool.query(query1, function(err, results){
-        if (err){console.error(err)}
-        res.send(results)
+        if (err){
+            res.status(500)
+            console.error(err)
+            res.send(`Error retrieving reports: ${err}`)
+        } else {
+            res.status(200)
+            res.send(results)
+        }
+     })
+})
+
+app.get(`/reports/:searchCol/:searchVal`, (req, res) => {
+    let query1 = 'SELECT reportID, callID, shiftID, authorID, patientFirstName,\
+    patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription \
+    FROM Reports WHERE '
+
+    // pull out the search terms
+    let searchCol = req.params.searchCol
+    let searchVal = req.params.searchVal
+    let searchTerm = String(searchCol) + '=' + String(searchVal)
+
+    // add them to the end of the query
+    query1 = query1 + searchTerm
+
+    db.pool.query(query1, function(err, results){
+        if (err){
+            res.status(500)
+            console.error(err)
+            res.send(`Error retrieving reports: ${err}`)
+        } else {
+            res.status(200)
+            res.send(results)
+        }
      })
 })
 
@@ -79,10 +110,21 @@ app.get('/shifts', (req, res) => {
                     FROM Shifts;';
 
     db.pool.query(query1, function(err, results){
-        if (err){console.error(err)}
-        res.send(results)
+        if (err){
+            res.status(500)
+            console.error(err)
+            res.send(`Error retrieving shifts: ${err}`)
+        } else {
+            // clean up shift dates so that they're normal format
+            for (let object of results) {
+                object.shiftDate = new Date(object.shiftDate).toLocaleDateString()
+            }
+            res.status(200)
+            res.send(results)
+        }
      })
 })
+
 app.post('/shifts', (req, res) => {
     const postVals = req.body
     db.pool.query('INSERT INTO Shifts SET ?', postVals, function(err, results) {
@@ -211,19 +253,35 @@ app.get('/reportemployees', (req, res) => {
                     INNER JOIN Reports r ON re.reportID = r.reportID;`;
 
     db.pool.query(query1, function(err, results){
-        if (err){console.error(err)}
-        res.send(results)
+        if (err){
+            console.error(err); 
+            res.status(500)
+            res.send(`Error retrieving report employees: ${err}`)
+        }
+        else {
+            // clean up the dates so that they're normal format
+            for (let object of results) {
+                object.reportTimeStamp = new Date(object.reportTimeStamp).toLocaleDateString()
+
+            }
+            res.status(200)
+            res.send(results)
+        }
      })
 })
 
 app.post('/reportemployees', (req, res) => {
     const postVals = req.body
     db.pool.query('INSERT INTO ReportEmployees SET ?', postVals, function(err, results) {
-        if (err) {
-            console.error(err);
-            res.send({'Error': 'Error creating employee', 'Error Info': err})
+        if (err){
+            console.error(err); 
+            res.status(500)
+            res.send(`Error tying report to employees: ${err}`)
         }
-        res.status(201).json(results)
+        else {
+            res.status(200)
+            res.send(results)
+        }
     })
 })
 

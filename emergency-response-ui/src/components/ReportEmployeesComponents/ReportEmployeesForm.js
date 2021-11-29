@@ -10,15 +10,15 @@ function ReportEmployeesForm(){
     const addreportemployee = async (e) => {
         e.preventDefault();
         const addEmployee = {employeeID, reportID};
-        const response = fetch('http://flip3.engr.oregonstate.edu:4422/reportemployees', {
+        const response = await fetch('http://flip3.engr.oregonstate.edu:4423/reportemployees', {
             method: 'POST', 
             body: JSON.stringify(addEmployee),
             headers: {
                 'Content-Type': 'application/json',
             }
         }); 
-        // SETTING 'undefined' IS A PATCH UP CAUSE DONT KNOW WHY RES.STATUS IS UNDEFINED.
-        if (response.status === 201 || response.status === undefined) {
+        
+        if (response.status === 201) {
             alert('New Report Employee successfully added!');
         } 
         else {

@@ -6,8 +6,15 @@ function ReportSearch() {
   const [searchVal, setsearchVal] = useState();
 
   //define function to get the results after form submitted
-  const getReports = () => {
-    //use search col to fill in select query
+  const getReports = async (e) => {
+    e.preventDefault()
+
+    const results = await fetch(`http://flip3.engr.oregonstate.edu:4423/reports/${searchCol}/${searchVal}`)
+    if (results.status === 500){
+      alert(`Error finding report! Response code: ${results.status}`)
+    } else {
+      alert('Found some stuff!')
+    }
     return;
   };
 
@@ -24,9 +31,9 @@ function ReportSearch() {
               value={searchCol}
               onChange={(e) => setsearchCol(e.target.value)}
             >
-              <option>Shift ID</option>
-              <option>Author ID</option>
-              <option>Patient Last Name</option>
+              <option value='shiftID'>Shift ID</option>
+              <option value='authorID'>Author ID</option>
+              <option value='patientLastName'>Patient Last Name</option>
             </Form.Select>
           </Col>
           <Col>
@@ -40,7 +47,7 @@ function ReportSearch() {
           </Col>
         </Row>
         <br />
-        <Button variant="primary">Submit</Button>
+        <Button variant="primary" onClick={(e) => getReports(e)}>Submit</Button>
       </Form>
     </div>
   );
