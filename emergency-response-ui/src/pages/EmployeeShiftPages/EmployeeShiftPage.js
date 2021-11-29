@@ -11,7 +11,7 @@ function EmployeeShiftPage() {
   const [searchBy, setSearchBy] = useState();
 
   const loadEmployeeShifts = async(e) => {
-    const getEmployeeShifts = await fetch('http://flip3.engr.oregonstate.edu:4422/employeeshifts');
+    const getEmployeeShifts = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/employeeshifts`);
     const theEmployeeShifts = await getEmployeeShifts.json();
     setEmployeeShifts(theEmployeeShifts);
   };

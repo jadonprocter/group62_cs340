@@ -13,7 +13,7 @@ function ReportsPage({ setReportToEdit }) {
 
   const loadReports = async () => {
     // this async function will be used to grab the reports from the back end
-      const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports`)
+      const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/reports`)
       const reports = await response.json()
       setafterReports(reports)
   };
@@ -23,7 +23,7 @@ function ReportsPage({ setReportToEdit }) {
   }, []);
 
   const deleteReport = async (reportID) => {
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports/${reportID}`, {method: 'DELETE'})
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/reports/${reportID}`, {method: 'DELETE'})
     if (response.status === 204) {
       alert(`Report ${reportID} deleted`)
     } else {

@@ -7,7 +7,7 @@ function ReportEmployeesPage() {
 
     const loadReportEmployees = async() => {
         //use this function to load the data from SQL when database connected
-        const getReportEmployees = await fetch('http://flip3.engr.oregonstate.edu:4423/reportemployees');
+        const getReportEmployees = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/reportemployees`);
         const theReportEmployees = await getReportEmployees.json();
         setreportEmployees(theReportEmployees)
     }

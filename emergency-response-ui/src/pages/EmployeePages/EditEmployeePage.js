@@ -22,7 +22,7 @@ function EditEmployeePage({ employeeToEdit }) {
   const editEmployee = async (e) => {
     e.preventDefault()
     const editedEmployee = {employeeID, firstName, lastName, role, compensationRate, areaCode, phoneNumber, employeeEmail}
-    const response = await fetch('http://flip3.engr.oregonstate.edu:4422/employees', {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/employees`, {
       method: 'PUT',
       body: JSON.stringify(editedEmployee),
       header: {

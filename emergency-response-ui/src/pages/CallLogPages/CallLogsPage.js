@@ -8,7 +8,7 @@ function CallLogsPage() {
   const [callLogs, setCallLogs] = useState([]);
 
   const loadCallLogs = async () => {
-    const getCallLogs = await fetch('http://flip3.engr.oregonstate.edu:4422/calllogs');
+    const getCallLogs = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/calllogs`);
     const theCallLogs = await getCallLogs.json();
     setCallLogs(theCallLogs);
   };

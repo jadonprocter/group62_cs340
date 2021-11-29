@@ -15,6 +15,7 @@ import EditEmployeePage from "./pages/EmployeePages/EditEmployeePage";
 import ReportEmployeesPage from "./pages/ReportEmployeePages/ReportEmployeesPage";
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import 'dotenv';
 
 function App() {
   const [employeeToEdit, setEmployeeToEdit] = useState();
