@@ -9,7 +9,7 @@ function ReportSearch() {
   const getReports = async (e) => {
     e.preventDefault()
 
-    const results = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/reports/${searchCol}/${searchVal}`)
+    const results = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/reports/${searchCol}/${searchVal}`)
     if (results.status === 500){
       alert(`Error finding report! Response code: ${results.status}`)
     } else {

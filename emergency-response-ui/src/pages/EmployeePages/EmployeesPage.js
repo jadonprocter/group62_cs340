@@ -8,7 +8,7 @@ function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
   const [employees, setEmployees] = useState([]);
   const history = useHistory();
   const loadEmployees = async () => {
-    const getEmployees = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/employees`);
+    const getEmployees = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/employees`);
     const theEmployees = await getEmployees.json()
     setEmployees(theEmployees);
   };

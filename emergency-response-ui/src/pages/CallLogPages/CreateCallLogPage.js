@@ -29,7 +29,7 @@ function CreateCallLogPage() {
     getTimeStamp();
     e.preventDefault();
     const newCallLog = {shiftID, dispatcherID, callTimeStamp, responseType, callerFirstName, callerLastName, chiefComplaint, areaCode, phoneNumber, streetAddress, zipCode, phoneNotes};
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/calllogs`, {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/calllogs`, {
       method: 'POST',
       body: JSON.stringify(newCallLog),
       headers: {

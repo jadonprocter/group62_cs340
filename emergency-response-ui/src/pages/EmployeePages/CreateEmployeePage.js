@@ -15,7 +15,7 @@ function CreateEmployeePage() {
   const createEmployee = async (e) => {
     e.preventDefault();
     const newEmployee = {firstName, lastName, role, compensationRate, areaCode, phoneNumber, employeeEmail}
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/employees`, {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/employees`, {
       method: 'POST', 
       body: JSON.stringify(newEmployee),
       headers: {

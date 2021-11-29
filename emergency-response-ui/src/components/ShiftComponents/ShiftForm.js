@@ -14,7 +14,7 @@ function ShiftForm() {
   const newShift = async (e) => {
     e.preventDefault();
     const newShift = {shiftDate, startTime, endTime, holidayPay};
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_URL}/shifts`, {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/shifts`, {
       method: 'POST', 
       body: JSON.stringify(newShift),
       headers: {
