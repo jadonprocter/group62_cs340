@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import {Form, Row, Button, Col} from "react-bootstrap"
 
 function ReportEmployeesForm(){
+    const port = 4422
     const history = useHistory();
     const [employeeID, setemployeeID] = useState('')
     const [reportID, setreportID] = useState('')
@@ -10,7 +11,7 @@ function ReportEmployeesForm(){
     const addreportemployee = async (e) => {
         e.preventDefault();
         const addEmployee = {employeeID, reportID};
-        const response = await fetch('http://flip3.engr.oregonstate.edu:4423/reportemployees', {
+        const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reportemployees`, {
             method: 'POST', 
             body: JSON.stringify(addEmployee),
             headers: {

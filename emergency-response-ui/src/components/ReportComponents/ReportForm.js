@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 function ReportForm({ reportToEdit }) {
   const history = useHistory();
-  const port = 4423
+  const port = 4422
 
   //define starting conditions for the form based on if a report was passed in
   const [callID, setcallID] = useState(
