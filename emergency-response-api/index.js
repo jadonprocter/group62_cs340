@@ -1,13 +1,14 @@
 const db = require('./dbcon');
 const express = require('express');
 const cors = require('cors')
-const SQL = require('sql-template-strings');
+const bodyParser = require('body-parser');
 
-const PORT = 4423;
+const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.json())
 app.use(cors())
+app.use(bodyParser.json())
 
 /*--------------------------------------------------------------------------------
 REPORT queries 
@@ -72,6 +73,7 @@ app.post('/reports', (req, res) => {
 
 app.put('/reports/:reportID', (req, res) => {
     let updateVals = req.body
+    console.log(req.body);
     let updatequery = 'UPDATE Reports SET ? WHERE ?'
     db.pool.query(updatequery, [updateVals, req.params], function(err, results){
         if(err) {
@@ -162,28 +164,21 @@ app.post('/employees', (req, res) => {
         res.status(201).json(results)
     })
 })
-// PUT NOT WORKING -- 
-// app.put('/employees', (req, res) => {
-//     const putVals = req.body
-    
-//     const updateQuery = (SQL`UPDATE EmergencyResponseEmployees
-//                             SET firstName = ${putVals.firstName}, lastName = ${putVals.lastName}, role = ${putVals.role}, 
-//                                 compensationRate = ${putVals.compensationRate}, areaCode = ${putVals.areaCode}, phoneNumber = ${putVals.phoneNumber}, 
-//                                 employeeEmail = ${putVals.employeeEmail}
-//                             WHERE employeeID = ${putVals.employeeID}`);
-//     db.pool.query(updateQuery, (err, results) => {
-//         if (err) {
-//             console.log(err)
-//             console.log(results)
-
-//         }
-//         else {
-//             console.log(results)
-//             res.status(204).json(results)
-//         }
-//     })
-    
-// })
+ 
+app.put('/employees/:employeeID', (req, res) => {
+    let updateVals = req.body
+    console.log("HERE-----------------");
+    console.log(req.body);
+    let updatequery = 'UPDATE EmergencyResponseEmployees SET ? WHERE ?'
+    db.pool.query(updatequery, [updateVals, req.params], function(err, results){
+        if(err) {
+            console.error(err);
+            res.status(500)
+            res.send({'Error editing employee': err})
+        }
+        else res.status(200).json(results)
+    })
+})
 
 /*--------------------------------------------------------------------------------
 CALLLOGS queries 
