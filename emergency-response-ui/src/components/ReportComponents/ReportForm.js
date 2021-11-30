@@ -45,7 +45,7 @@ function ReportForm({ reportToEdit }) {
   const newReport = async (e) => {
     e.preventDefault()
     const formInfo = {shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/reports`, {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/reports`, {
         method: 'POST',
         body: JSON.stringify(formInfo),
         headers: {
@@ -65,7 +65,7 @@ function ReportForm({ reportToEdit }) {
   const updateReport = async (e) => {
     e.preventDefault();
     const updateObject = {shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/reports/${reportToEdit.reportID}`, {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/reports/${reportToEdit.reportID}`, {
         method: 'PUT',
         body: JSON.stringify(updateObject),
         headers: {

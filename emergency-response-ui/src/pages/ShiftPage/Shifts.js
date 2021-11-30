@@ -7,7 +7,7 @@ function ShiftsPage() {
 
     //grab shifts from backend
     const loadShifts = async () => {
-        const getShifts = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/calllogs`);
+        const getShifts = await fetch(`http://flip3.engr.oregonstate.edu:4422/calllogs`);
         // convert to JS object
         const theShifts = await getShifts.json();
         setShifts(theShifts);

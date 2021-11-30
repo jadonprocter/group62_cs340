@@ -5,8 +5,8 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 function EditEmployeePage({ employeeToEdit }) {
   const [employeeID] = useState(employeeToEdit.employeeID);
-  const [firstName, setFirstName] = useState(employeeToEdit.firstName);
-  const [lastName, setLastName] = useState(employeeToEdit.lastName);
+  const [employeeFirstName, setEmployeeFirstName] = useState(employeeToEdit.firstName);
+  const [employeeLastName, setEmployeeLastName] = useState(employeeToEdit.lastName);
   const [role, setRole] = useState(employeeToEdit.role);
   const [compensationRate, setCompensationRate] = useState(
     employeeToEdit.compensationRate
@@ -21,15 +21,16 @@ function EditEmployeePage({ employeeToEdit }) {
 
   const editEmployee = async (e) => {
     e.preventDefault()
-    const editedEmployee = {employeeID, firstName, lastName, role, compensationRate, areaCode, phoneNumber, employeeEmail}
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/employees`, {
+    const editedEmployee = {employeeFirstName, employeeLastName, role, compensationRate, areaCode, phoneNumber, employeeEmail};
+    console.log(editedEmployee);
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/employees/${employeeToEdit.employeeID}`, {
       method: 'PUT',
       body: JSON.stringify(editedEmployee),
       header: {
         'Content-Type': 'application/json',
       }
     })
-    if (response === 204) {
+    if (response === 200) {
       alert(`Employee with id: ${employeeID}, has been updated`);
     }  
     else {
@@ -46,16 +47,16 @@ function EditEmployeePage({ employeeToEdit }) {
           <Form.Label>First Name:</Form.Label>
           <Form.Control
             type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={employeeFirstName}
+            onChange={(e) => setEmployeeFirstName(e.target.value)}
           />
         </Col>
         <Col>
           <Form.Label>Last Name:</Form.Label>
           <Form.Control
             type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={employeeLastName}
+            onChange={(e) => setEmployeeLastName(e.target.value)}
           />
         </Col>
       </Row>

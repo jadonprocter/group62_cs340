@@ -10,7 +10,7 @@ function ReportEmployeesForm(){
     const addreportemployee = async (e) => {
         e.preventDefault();
         const addEmployee = {employeeID, reportID};
-        const response = await fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/reportemployees`, {
+        const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/reportemployees`, {
             method: 'POST', 
             body: JSON.stringify(addEmployee),
             headers: {

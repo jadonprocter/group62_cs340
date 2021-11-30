@@ -11,7 +11,7 @@ function AssignEmployeeShiftForm() {
   const assignShift = async (e) => {
     e.preventDefault();
     const assignEmployee = {employeeID, shiftID};
-    const response = fetch(`http://flip3.engr.oregonstate.edu:${process.env.BACKEND_PORT}/employeeshifts`, {
+    const response = fetch(`http://flip3.engr.oregonstate.edu:4422/employeeshifts`, {
       method: 'POST', 
       body: JSON.stringify(assignEmployee),
       headers: {
