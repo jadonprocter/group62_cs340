@@ -3,11 +3,12 @@ import ReportEmployeesForm from "../../components/ReportEmployeesComponents/Repo
 import ReportEmployeesTable from "../../components/ReportEmployeesComponents/ReportEmployeesTable";
 
 function ReportEmployeesPage() {
+    const port = 4422
     const [reportEmployees, setreportEmployees] = useState([])
 
     const loadReportEmployees = async() => {
         //use this function to load the data from SQL when database connected
-        const getReportEmployees = await fetch(`http://flip3.engr.oregonstate.edu:4422/reportemployees`);
+        const getReportEmployees = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reportemployees`);
         const theReportEmployees = await getReportEmployees.json();
         setreportEmployees(theReportEmployees)
     }

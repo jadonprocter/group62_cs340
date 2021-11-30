@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 
 function ReportsPage({ setReportToEdit }) {
   const history = useHistory();
-  const port = 4423
+  const port = 4422
   // define reports to pass in to table
   const [afterreports, setafterReports] = useState([]);
 
@@ -23,7 +23,7 @@ function ReportsPage({ setReportToEdit }) {
   }, []);
 
   const deleteReport = async (reportID) => {
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/reports/${reportID}`, {method: 'DELETE'})
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports/${reportID}`, {method: 'DELETE'})
     if (response.status === 204) {
       alert(`Report ${reportID} deleted`)
     } else {
