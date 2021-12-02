@@ -35,24 +35,16 @@ app.get('/reports', (req, res) => {
      })
 })
 
-app.get(`/reports/:searchCol/:searchVal`, (req, res) => {
+app.get(`/reports/:searchTerm`, (req, res) => {
     let query1 = 'SELECT reportID, callID, shiftID, authorID, patientFirstName,\
     patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription \
-    FROM Reports WHERE '
-
-    // pull out the search terms
-    let searchCol = req.params.searchCol
-    let searchVal = req.params.searchVal
-    let searchTerm = String(searchCol) + '=' + String(searchVal)
-
-    // add them to the end of the query
-    query1 = query1 + searchTerm
+    FROM Reports WHERE ' + req.params.searchTerm
 
     db.pool.query(query1, function(err, results){
         if (err){
             res.status(500)
             console.error(err)
-            res.send(`Error retrieving reports: ${err}`)
+            res.send(JSON.stringify({'error finding report': err.sqlMessage}))
         } else {
             res.status(200)
             res.send(results)
@@ -167,8 +159,6 @@ app.post('/employees', (req, res) => {
  
 app.put('/employees/:employeeID', (req, res) => {
     let updateVals = req.body
-    console.log("HERE-----------------");
-    console.log(req);
     let updatequery = 'UPDATE EmergencyResponseEmployees SET ? WHERE ?'
     db.pool.query(updatequery, [updateVals, req.params], function(err, results){
         if(err) {

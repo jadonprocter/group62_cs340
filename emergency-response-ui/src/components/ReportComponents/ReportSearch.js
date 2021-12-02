@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
-function ReportSearch() {
-  const port = 4422
+function ReportSearch({loadReports}) {
   const [searchCol, setsearchCol] = useState('shiftID');
   const [searchVal, setsearchVal] = useState();
 
   //define function to get the results after form submitted
   const getReports = async (e) => {
     e.preventDefault()
-    const results = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports/${searchCol}/${searchVal}`)
-    if (results.status === 500){
-      alert(`Error finding report! Response code: ${results.status}`)
-    } else {
-      alert('Found some stuff!')
-    }
-    return;
+    loadReports(searchCol, searchVal)
   };
 
   return (
