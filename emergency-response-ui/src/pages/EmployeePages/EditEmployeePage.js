@@ -5,8 +5,8 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 function EditEmployeePage({ employeeToEdit }) {
   const [employeeID] = useState(employeeToEdit.employeeID);
-  const [employeeFirstName, setEmployeeFirstName] = useState(employeeToEdit.firstName);
-  const [employeeLastName, setEmployeeLastName] = useState(employeeToEdit.lastName);
+  const [firstName, setEmployeeFirstName] = useState(employeeToEdit.firstName);
+  const [lastName, setEmployeeLastName] = useState(employeeToEdit.lastName);
   const [role, setRole] = useState(employeeToEdit.role);
   const [compensationRate, setCompensationRate] = useState(
     employeeToEdit.compensationRate
@@ -21,12 +21,12 @@ function EditEmployeePage({ employeeToEdit }) {
 
   const editEmployee = async (e) => {
     e.preventDefault()
-    const editedEmployee = {employeeFirstName, employeeLastName, role, compensationRate, areaCode, phoneNumber, employeeEmail};
+    const editedEmployee = {firstName, lastName, role, compensationRate, areaCode, phoneNumber, employeeEmail};
     console.log(editedEmployee);
     const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/employees/${employeeToEdit.employeeID}`, {
       method: 'PUT',
       body: JSON.stringify(editedEmployee),
-      header: {
+      headers: {
         'Content-Type': 'application/json',
       }
     })
@@ -47,7 +47,7 @@ function EditEmployeePage({ employeeToEdit }) {
           <Form.Label>First Name:</Form.Label>
           <Form.Control
             type="text"
-            value={employeeFirstName}
+            value={firstName}
             onChange={(e) => setEmployeeFirstName(e.target.value)}
           />
         </Col>
@@ -55,7 +55,7 @@ function EditEmployeePage({ employeeToEdit }) {
           <Form.Label>Last Name:</Form.Label>
           <Form.Control
             type="text"
-            value={employeeLastName}
+            value={lastName}
             onChange={(e) => setEmployeeLastName(e.target.value)}
           />
         </Col>

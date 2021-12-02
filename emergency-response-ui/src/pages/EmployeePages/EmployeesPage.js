@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import EmployeeTable from "../../components/EmployeeComponents/EmployeeTable";
 import { Button } from "react-bootstrap";
 
-function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
+function EmployeesPage({ setEmployeeToEdit }) {
   const [employees, setEmployees] = useState([]);
   const history = useHistory();
   const loadEmployees = async () => {
@@ -13,8 +13,8 @@ function EmployeesPage({ employeeToEdit, setEmployeeToEdit }) {
     setEmployees(theEmployees);
   };
 
-  const editEmployee = async (employee) => {
-    setEmployeeToEdit(employee);
+  const editEmployee = (employeeToEdit) => {
+    setEmployeeToEdit(employeeToEdit);
     history.push("/edit-employee");
   };
 

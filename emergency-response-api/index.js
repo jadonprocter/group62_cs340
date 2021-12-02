@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
 
-const PORT = 4422;
+const PORT = 4423;
 const app = express();
 
 app.use(express.json())
@@ -168,7 +168,7 @@ app.post('/employees', (req, res) => {
 app.put('/employees/:employeeID', (req, res) => {
     let updateVals = req.body
     console.log("HERE-----------------");
-    console.log(req.body);
+    console.log(req);
     let updatequery = 'UPDATE EmergencyResponseEmployees SET ? WHERE ?'
     db.pool.query(updatequery, [updateVals, req.params], function(err, results){
         if(err) {
