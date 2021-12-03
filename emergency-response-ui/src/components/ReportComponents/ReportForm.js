@@ -78,10 +78,12 @@ function ReportForm({ reportToEdit }) {
     });
     if (response.status === 200) {
         alert('Report successfully updated!')
+        history.push("/reports");
     } else {
-        alert(`Failed to update report. Response code ${response.status}.`)
+        let responseMessage = await response.json()
+        responseMessage = JSON.stringify(responseMessage)
+        alert(`Failed to update report! SQL message: ${responseMessage}`)
     };
-    history.push("/reports");
   };
 
   return (

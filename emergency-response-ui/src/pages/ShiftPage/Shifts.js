@@ -3,7 +3,7 @@ import ShiftForm from "../../components/ShiftComponents/ShiftForm";
 import ShiftTable from "../../components/ShiftComponents/ShiftTable";
 
 function ShiftsPage() {
-    const port = 4422
+    const port = 4423
     const [shifts, setShifts] = useState([])
 
     //grab shifts from backend
@@ -19,7 +19,7 @@ function ShiftsPage() {
     },[])
 
     return (
-        <div>
+        <div id="tableOverride">
             <h1>Shifts</h1>
             <ShiftTable shifts={shifts}></ShiftTable>
             <ShiftForm></ShiftForm>

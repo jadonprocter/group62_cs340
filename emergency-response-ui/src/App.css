@@ -2,6 +2,11 @@
   text-align: left;
 }
 
+#tableOverride {
+  max-width: 90%;
+  margin: auto;
+}
+
 .App-home {
   text-align: center;
   align-items: center;

@@ -58,7 +58,7 @@ function ReportsPage({ setReportToEdit }) {
   }
 
   return (
-    <div>
+    <div id="tableOverride">
       <h1>Reports</h1>
       {/*insert the table of existing reports here, have a link to creating a new report at the 
             bottom. Pass in reports list to report table for population. */}

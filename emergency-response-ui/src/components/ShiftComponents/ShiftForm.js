@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 function ShiftForm() {
-  const port = 4422
+  const port = 4423
   const history = useHistory();
   const [shiftDate, setShiftDate] = useState(null);
   const [startTime, setstartTime] = useState(null);
@@ -14,7 +14,7 @@ function ShiftForm() {
   const newShift = async (e) => {
     e.preventDefault();
     const newShift = {shiftDate, startTime, endTime, holidayPay};
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/shifts`, {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/shifts`, {
       method: 'POST', 
       body: JSON.stringify(newShift),
       headers: {
@@ -23,11 +23,13 @@ function ShiftForm() {
     })
     if (response.status === 201) {
       alert('New Shift successfully added!')
+      history.go(0)
     } 
     else {
-        alert(`Failed to add new shift. Response code: ${response.status}.`)
+        let responseMessage = await response.json()
+        responseMessage = JSON.stringify(responseMessage)
+        alert(`Failed to add new shift. SQL Message: ${responseMessage}.`)
     };
-    history.go(0);
   };
 
   return (

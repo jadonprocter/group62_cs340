@@ -66,13 +66,11 @@ app.post('/reports', (req, res) => {
 
 app.put('/reports/:reportID', (req, res) => {
     let updateVals = req.body
-    console.log(req.body);
     let updatequery = 'UPDATE Reports SET ? WHERE ?'
     db.pool.query(updatequery, [updateVals, req.params], function(err, results){
         if(err) {
-            console.error(err);
-            res.status(500)
-            res.send({'Error updating report': err})
+            console.error(err)
+            res.status(500).json({'error updating report': err.sqlMessage})
         }
         else res.status(200).json(results)
     })
@@ -102,7 +100,7 @@ post - create a new shift
 ---------------------------------------------------------------------------------*/
 app.get('/shifts', (req, res) => {
     const query1 = 'SELECT shiftID, shiftDate, startTime, endTime, holidayPay\
-                    FROM Shifts;';
+                    FROM Shifts ORDER BY shiftDate DESC;';
 
     db.pool.query(query1, function(err, results){
         if (err){
@@ -124,9 +122,8 @@ app.post('/shifts', (req, res) => {
     const postVals = req.body
     db.pool.query('INSERT INTO Shifts SET ?', postVals, function(err, results) {
         if (err) {
-            console.error(err);
-            res.status(500)
-            res.send({'Error': 'Error creating shift', 'Error Info': err})
+            console.error(err)
+            res.status(500).json({'error creating shift': err.sqlMessage})
         } else {res.status(201).json(results)}
     })
 })
