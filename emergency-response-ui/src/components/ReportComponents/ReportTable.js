@@ -11,6 +11,7 @@ function ReportTable({ afterreports, editReport, deleteReport }) {
             <th>Call ID</th>
             <th>Shift ID</th>
             <th>Author ID</th>
+            <th>Report Title</th>
             <th>Patient First Name</th>
             <th>Patient Last Name</th>
             <th>Patient Gender</th>

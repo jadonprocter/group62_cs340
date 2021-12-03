@@ -16,6 +16,9 @@ function ReportForm({ reportToEdit }) {
   const [authorID, setauthorID] = useState(
     reportToEdit != null ? reportToEdit.authorID : null
   );
+  const [reportTitle, setreportTitle] = useState(
+    reportToEdit != null ? reportToEdit.reportTitle : null
+  );
   const [patientFirstName, setpatientFirstName] = useState(
     reportToEdit != null ? reportToEdit.patientFirstName : null
   );
@@ -44,8 +47,8 @@ function ReportForm({ reportToEdit }) {
   //define the function to create a new report
   const newReport = async (e) => {
     e.preventDefault()
-    const formInfo = {shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/reports`, {
+    const formInfo = {shiftID, callID, authorID, reportTitle, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:4423/reports`, {
         method: 'POST',
         body: JSON.stringify(formInfo),
         headers: {
@@ -54,18 +57,19 @@ function ReportForm({ reportToEdit }) {
     });
     if (response.status === 201) {
         alert('Report successfully created!')
+        history.push("/reports")
     } else {
-        console.log(response)
-        alert(`Failed to create report. Response code ${response.status}.`)
+        let responseMessage = await response.json()
+        responseMessage = JSON.stringify(responseMessage)
+        alert(`Failed to create report! SQL message: ${responseMessage}`)
     };
-    history.push("/reports");
   };
 
   //define the function to update a report
   const updateReport = async (e) => {
     e.preventDefault();
-    const updateObject = {shiftID, callID, authorID, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/reports/${reportToEdit.reportID}`, {
+    const updateObject = {shiftID, callID, authorID, reportTitle, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:4423/reports/${reportToEdit.reportID}`, {
         method: 'PUT',
         body: JSON.stringify(updateObject),
         headers: {
@@ -83,6 +87,18 @@ function ReportForm({ reportToEdit }) {
   return (
     <div>
       <Form>
+        <Row>
+          <Col>
+            <Form.Label>Report Title:</Form.Label>
+            <Form.Control
+              type="text"
+              value={reportTitle}
+              placeholder="Title (e.g. Fire response - few word desc.)"
+              onChange={(e) => setreportTitle(e.target.value)}
+            />
+          </Col>
+        </Row>
+        <br />
         <Row>
           <Col>
             <Form.Label>Call ID:</Form.Label>
@@ -143,6 +159,7 @@ function ReportForm({ reportToEdit }) {
             >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
+              <option value="N/A">N/A</option>
             </Form.Select>
           </Col>
           <Col>

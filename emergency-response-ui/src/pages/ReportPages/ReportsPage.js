@@ -7,28 +7,28 @@ import { Button } from "react-bootstrap";
 
 function ReportsPage({ setReportToEdit }) {
   const history = useHistory();
-  const port = 4422
+  const port = 4423
   // define reports to pass in to table
   const [afterreports, setafterReports] = useState([]);
 
   const loadReports = async (searchCol=false, searchVal=false) => {
     // this async function will be used to grab the reports from the back end
     if (!(searchCol)) {  
-      const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/reports`)
+      const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports`)
       let reports = await response.json()
       setafterReports(reports)
     } 
     
     else {
       let search = String(searchCol) + '=' + String(`'${searchVal}'`)
-      const response = await fetch(`http://flip3.engr.oregonstate.edu:4423/reports/${search}`)
+      const response = await fetch(`http://flip3.engr.oregonstate.edu:${port}/reports/${search}`)
         if (response.status === 500){
           let responseMessage = await response.json()
           responseMessage = JSON.stringify(responseMessage)
           alert(`Error finding report! ${responseMessage}`)
         } else {
           let reports = await response.json()
-          if (reports.keys().length === 0) {
+          if (Object.keys(reports).length === 0) {
             alert('Search term not found')
           } else {
             alert('Found some stuff!')

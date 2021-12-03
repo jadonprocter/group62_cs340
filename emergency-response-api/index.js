@@ -19,7 +19,7 @@ delete - delete a report
 ---------------------------------------------------------------------------------*/
 
 app.get('/reports', (req, res) => {
-    let query1 = 'SELECT reportID, callID, shiftID, authorID, patientFirstName,\
+    let query1 = 'SELECT reportID, callID, shiftID, authorID, reportTitle, patientFirstName,\
     patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription \
     FROM Reports;'
 
@@ -55,9 +55,10 @@ app.get(`/reports/:searchTerm`, (req, res) => {
 app.post('/reports', (req, res) => {
     let postVals = req.body
     db.pool.query('INSERT INTO Reports SET ?', postVals, function(err, results) {
-        if (err) {
-            console.error(err);
-            res.status(500).json(results)
+        if (err){
+            res.status(500)
+            console.error(err)
+            res.send(JSON.stringify({'error creating report': err.sqlMessage}))
         }
         else res.status(201).json(results)
     })
@@ -246,8 +247,9 @@ app.get('/reportemployees', (req, res) => {
         else {
             // clean up the dates so that they're normal format
             for (let object of results) {
-                object.reportTimeStamp = new Date(object.reportTimeStamp).toLocaleDateString()
-
+                let holder = new Date(object.reportTimeStamp).toLocaleDateString()
+                object.reportTime = new Date(object.reportTimeStamp).toLocaleTimeString()
+                object.reportTimeStamp = holder
             }
             res.status(200)
             res.send(results)
