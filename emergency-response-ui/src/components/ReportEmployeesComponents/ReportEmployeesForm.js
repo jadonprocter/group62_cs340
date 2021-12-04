@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {Form, Row, Button, Col} from "react-bootstrap"
 
-function ReportEmployeesForm(){
-    const port = 4422
+function ReportEmployeesForm({employeeChoices, reportChoices}){
+    const port = 4423
     const history = useHistory();
-    const [employeeID, setemployeeID] = useState('')
-    const [reportID, setreportID] = useState('')
+    const [employeeID, setemployeeID] = useState(null)
+    const [reportID, setreportID] = useState(null)
 
     const addreportemployee = async (e) => {
         e.preventDefault();
@@ -20,10 +20,12 @@ function ReportEmployeesForm(){
         }); 
         
         if (response.status === 201) {
-            alert('New Report Employee successfully added!');
+            alert('Employee succesffully tied to report!');
         } 
         else {
-            alert(`Failed to add employee to report. Response code: ${response.status}.`);
+            let responseMessage = await response.json()
+            responseMessage = JSON.stringify(responseMessage)
+            alert(`Failed to add employee to report. SQL Message: ${responseMessage}.`)
         };
         history.go(0);
     }
@@ -37,12 +39,36 @@ function ReportEmployeesForm(){
                 <Row>
                     <Col>
                         <Form.Label>Employee ID: 
-                            <Form.Control placeholder='Employee ID' onChange={(e) => setemployeeID(e.target.value)}></Form.Control>
+                            <Form.Select 
+                                value={employeeID}
+                                placeholder='Employee ID' 
+                                onChange={(e) => setemployeeID(e.target.value)}>
+                                    <option value={null}> </option>
+                                    {employeeChoices.map((employeeChoice) => {
+                                        return (
+                                            <option key={employeeChoice.employeeID} value={employeeChoice.employeeID}> 
+                                                {employeeChoice.firstName + ' ' + employeeChoice.lastName}
+                                            </option>
+                                        )
+                                    })}
+                            </Form.Select>
                         </Form.Label>
                     </Col>
                     <Col>
                         <Form.Label> Report ID:
-                            <Form.Control placeholder = 'Report ID' onChange={(e) => setreportID(e.target.value)}></Form.Control>
+                            <Form.Select 
+                                value={reportID}
+                                placeholder='Report ID' 
+                                onChange={(e) => setreportID(e.target.value)}>
+                                    <option value={null}> </option>
+                                    {reportChoices.map((reportChoice) => {
+                                        return (
+                                            <option key={reportChoice.reportID} value={reportChoice.reportID}> 
+                                                {reportChoice.reportTitle}
+                                            </option>
+                                        )
+                                    })}
+                            </Form.Select>
                         </Form.Label>
                     </Col>
                 </Row>

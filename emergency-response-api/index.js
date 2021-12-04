@@ -103,10 +103,9 @@ app.get('/shifts', (req, res) => {
                     FROM Shifts ORDER BY shiftDate DESC;';
 
     db.pool.query(query1, function(err, results){
-        if (err){
-            res.status(500)
+        if (err) {
             console.error(err)
-            res.send(`Error retrieving shifts: ${err}`)
+            res.status(500).json({'error retrieving shifts': err.sqlMessage})
         } else {
             // clean up shift dates so that they're normal format
             for (let object of results) {
@@ -236,10 +235,9 @@ app.get('/reportemployees', (req, res) => {
                     INNER JOIN Reports r ON re.reportID = r.reportID;`;
 
     db.pool.query(query1, function(err, results){
-        if (err){
-            console.error(err); 
-            res.status(500)
-            res.send(`Error retrieving report employees: ${err}`)
+        if (err) {
+            console.error(err)
+            res.status(500).json({'error retrieving report-employees': err.sqlMessage})
         }
         else {
             // clean up the dates so that they're normal format
@@ -257,13 +255,12 @@ app.get('/reportemployees', (req, res) => {
 app.post('/reportemployees', (req, res) => {
     const postVals = req.body
     db.pool.query('INSERT INTO ReportEmployees SET ?', postVals, function(err, results) {
-        if (err){
-            console.error(err); 
-            res.status(500)
-            res.send(`Error tying report to employees: ${err}`)
+        if (err) {
+            console.error(err)
+            res.status(500).json({'error tying report to employee': err.sqlMessage})
         }
         else {
-            res.status(200)
+            res.status(201)
             res.send(results)
         }
     })
