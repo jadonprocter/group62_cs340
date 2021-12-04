@@ -47,7 +47,7 @@ function ReportEmployeesForm({employeeChoices, reportChoices}){
                                     {employeeChoices.map((employeeChoice) => {
                                         return (
                                             <option key={employeeChoice.employeeID} value={employeeChoice.employeeID}> 
-                                                {employeeChoice.firstName + ' ' + employeeChoice.lastName}
+                                                {employeeChoice.employeeID + ': ' + employeeChoice.firstName + ' ' + employeeChoice.lastName}
                                             </option>
                                         )
                                     })}
