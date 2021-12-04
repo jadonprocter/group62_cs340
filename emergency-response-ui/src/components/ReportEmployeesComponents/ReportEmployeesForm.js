@@ -64,7 +64,7 @@ function ReportEmployeesForm({employeeChoices, reportChoices}){
                                     {reportChoices.map((reportChoice) => {
                                         return (
                                             <option key={reportChoice.reportID} value={reportChoice.reportID}> 
-                                                {reportChoice.reportTitle}
+                                                {reportChoice.reportTimeStamp + ': ' + reportChoice.reportTitle}
                                             </option>
                                         )
                                     })}
