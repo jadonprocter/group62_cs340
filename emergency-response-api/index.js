@@ -41,9 +41,9 @@ app.get('/reports', (req, res) => {
 })
 
 app.get(`/reports/:searchTerm`, (req, res) => {
-    let query1 = 'SELECT reportID, callID, shiftID, authorID, patientFirstName,\
+    let query1 = `SELECT reportID, callID, shiftID, authorID, reportTitle, reportTimeStamp, patientFirstName,\
     patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription \
-    FROM Reports WHERE ' + req.params.searchTerm
+    FROM Reports WHERE ${req.params.searchTerm} ORDER BY reportTimeStamp DESC;`
 
     db.pool.query(query1, function(err, results){
         if (err){
@@ -51,6 +51,10 @@ app.get(`/reports/:searchTerm`, (req, res) => {
             console.error(err)
             res.send(JSON.stringify({'error finding report': err.sqlMessage}))
         } else {
+             // clean up the dates so that they're normal format
+             for (let object of results) {
+                object.reportTimeStamp = new Date(object.reportTimeStamp).toLocaleDateString()
+            }
             res.status(200)
             res.send(results)
         }

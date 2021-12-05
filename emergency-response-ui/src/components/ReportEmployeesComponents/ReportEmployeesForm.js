@@ -43,7 +43,7 @@ function ReportEmployeesForm({employeeChoices, reportChoices}){
                                 value={employeeID}
                                 placeholder='Employee ID' 
                                 onChange={(e) => setemployeeID(e.target.value)}>
-                                    <option value={null}> </option>
+                                    <option value={null}>ID: FirstName LastName </option>
                                     {employeeChoices.map((employeeChoice) => {
                                         return (
                                             <option key={employeeChoice.employeeID} value={employeeChoice.employeeID}> 
@@ -60,7 +60,7 @@ function ReportEmployeesForm({employeeChoices, reportChoices}){
                                 value={reportID}
                                 placeholder='Report ID' 
                                 onChange={(e) => setreportID(e.target.value)}>
-                                    <option value={null}> </option>
+                                    <option value={null}>ReportDate: ReportTitle </option>
                                     {reportChoices.map((reportChoice) => {
                                         return (
                                             <option key={reportChoice.reportID} value={reportChoice.reportID}> 

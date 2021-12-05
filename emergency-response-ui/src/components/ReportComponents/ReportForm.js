@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
-function ReportForm({ reportToEdit }) {
+function ReportForm({ reportToEdit, callChoices, shiftChoices, authorChoices }) {
   const history = useHistory();
-  const port = 4422
+  const port = 4423
 
   //define starting conditions for the form based on if a report was passed in
   const [callID, setcallID] = useState(
@@ -104,30 +104,51 @@ function ReportForm({ reportToEdit }) {
         <Row>
           <Col>
             <Form.Label>Call ID:</Form.Label>
-            <Form.Control
-              type="number"
-              value={callID}
-              placeholder="Auto increment integer"
-              onChange={(e) => setcallID(e.target.value)}
-            />
+            <Form.Select 
+                value={callID}
+                placeholder='call ID' 
+                onChange={(e) => setcallID(e.target.value)}>
+                    <option value={null}>ID: Response Type, Address, Chief Complaint </option>
+                    {callChoices.map((call) => {
+                        return (
+                            <option key={call.callID} value={call.callID}> 
+                                {call.callID + ': ' + call.responseType + ', ' + call.streetAddress + ', ' + call.chiefComplaint}
+                            </option>
+                        )
+                    })}
+            </Form.Select>
           </Col>
           <Col>
             <Form.Label>Shift ID:</Form.Label>
-            <Form.Control
-              type="number"
-              value={shiftID}
-              placeholder="Auto increment integer"
-              onChange={(e) => setshiftID(e.target.value)}
-            />
+            <Form.Select 
+                value={shiftID}
+                placeholder='shift ID' 
+                onChange={(e) => setshiftID(e.target.value)}>
+                    <option value={null}>ID: Shift Date, StartTime - EndTime </option>
+                    {shiftChoices.map((shift) => {
+                        return (
+                            <option key={shift.shiftID} value={shift.shiftID}> 
+                                {shift.shiftID + ': ' + shift.shiftDate + ', ' + shift.startTime + '-' + shift.endTime}
+                            </option>
+                        )
+                    })}
+            </Form.Select>
           </Col>
           <Col>
             <Form.Label>Author ID:</Form.Label>
-            <Form.Control
-              type="number"
-              value={authorID}
-              placeholder="Auto increment integer"
-              onChange={(e) => setauthorID(e.target.value)}
-            />
+            <Form.Select 
+                value={authorID}
+                placeholder='author ID' 
+                onChange={(e) => setauthorID(e.target.value)}>
+                    <option value={null}>ID: FirstName LastName </option>
+                    {authorChoices.map((author) => {
+                        return (
+                            <option key={author.employeeID} value={author.employeeID}> 
+                                {author.employeeID + ': ' + author.firstName + ' ' + author.lastName}
+                            </option>
+                        )
+                    })}
+            </Form.Select>
           </Col>
         </Row>
         <br />
