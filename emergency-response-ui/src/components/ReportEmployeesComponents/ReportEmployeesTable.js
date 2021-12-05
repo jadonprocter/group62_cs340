@@ -11,6 +11,7 @@ function ReportEmployeesTable({reportEmployees}){
                         <th>Employee First Name</th>
                         <th>Employee Last Name</th>
                         <th>Report ID</th>
+                        <th>Report Title</th>
                         <th>Report Date</th>
                         <th>Report Time</th>
                     </tr>

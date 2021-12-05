@@ -238,7 +238,7 @@ get - get report employees table
 post - create a new report employees instance
 ---------------------------------------------------------------------------------*/
 app.get('/reportemployees', (req, res) => {
-    const query1 = `SELECT re.employeeID, e.firstName, e.lastName, re.reportID, r.reportTimeStamp 
+    const query1 = `SELECT re.employeeID, e.firstName, e.lastName, re.reportID, r.reportTitle, r.reportTimeStamp 
                     FROM ReportEmployees re
                     INNER JOIN EmergencyResponseEmployees e ON re.employeeID = e.employeeID
                     INNER JOIN Reports r ON re.reportID = r.reportID;`;
