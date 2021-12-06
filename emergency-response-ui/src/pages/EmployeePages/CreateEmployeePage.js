@@ -90,7 +90,7 @@ function CreateEmployeePage() {
           <Form.Control
             type="text"
             value={phoneNumber}
-            placeholder="000-0000 (exclude area code)"
+            placeholder="0000000 (exclude area code)"
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </Col>
