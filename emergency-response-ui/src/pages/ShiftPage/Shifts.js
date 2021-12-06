@@ -3,7 +3,7 @@ import ShiftForm from "../../components/ShiftComponents/ShiftForm";
 import ShiftTable from "../../components/ShiftComponents/ShiftTable";
 
 function ShiftsPage() {
-    const port = 4423
+    const port = 4422
     const [shifts, setShifts] = useState([])
 
     //grab shifts from backend

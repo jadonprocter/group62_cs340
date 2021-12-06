@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 function ReportForm({ reportToEdit, callChoices, shiftChoices, authorChoices }) {
   const history = useHistory();
-  const port = 4423
+  const port = 4422
 
   //define starting conditions for the form based on if a report was passed in
   const [callID, setcallID] = useState(
@@ -48,7 +48,7 @@ function ReportForm({ reportToEdit, callChoices, shiftChoices, authorChoices }) 
   const newReport = async (e) => {
     e.preventDefault()
     const formInfo = {shiftID, callID, authorID, reportTitle, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:4423/reports`, {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/reports`, {
         method: 'POST',
         body: JSON.stringify(formInfo),
         headers: {
@@ -69,7 +69,7 @@ function ReportForm({ reportToEdit, callChoices, shiftChoices, authorChoices }) 
   const updateReport = async (e) => {
     e.preventDefault();
     const updateObject = {shiftID, callID, authorID, reportTitle, patientFirstName, patientLastName, patientGender, patientAge, medicationAdministered, incidentDescription};
-    const response = await fetch(`http://flip3.engr.oregonstate.edu:4423/reports/${reportToEdit.reportID}`, {
+    const response = await fetch(`http://flip3.engr.oregonstate.edu:4422/reports/${reportToEdit.reportID}`, {
         method: 'PUT',
         body: JSON.stringify(updateObject),
         headers: {
