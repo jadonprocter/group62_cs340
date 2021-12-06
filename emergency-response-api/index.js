@@ -275,6 +275,22 @@ app.post('/reportemployees', (req, res) => {
     })
 })
 
+app.delete('/reportemployees/:employeeID/:reportID', (req, res) => {
+
+    let deletequery = 'DELETE FROM ReportEmployees WHERE employeeID=? AND reportID=?'
+    db.pool.query(deletequery, [req.params.employeeID, req.params.reportID], function(err, results) {
+        if (err) {
+            console.error(err);
+            res.status(500)
+            res.send({"Error deleting report-employee": err})
+        } else if (results.affectedRows >= 1){
+            res.status(204).send()
+        } else {
+            res.status(404).json({"Report-employee not found": results})
+        }
+    })
+})
+
 
 app.listen(PORT, () => {
     console.log(`Express server listening on port ${PORT}`)

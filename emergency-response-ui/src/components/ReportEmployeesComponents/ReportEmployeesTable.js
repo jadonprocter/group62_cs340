@@ -1,7 +1,8 @@
 import React from "react";
-import {Table} from "react-bootstrap" 
+import {Table, Button} from "react-bootstrap" 
 
-function ReportEmployeesTable({reportEmployees}){
+function ReportEmployeesTable({reportEmployees, deletereportemployee}){
+
     return(
         <div>    
             <Table striped bordered hover responsive>
@@ -25,7 +26,16 @@ function ReportEmployeesTable({reportEmployees}){
                                         <td key={j}>
                                         {attribute}
                                         </td>
-                                )})} 
+                                )})}
+                                <td>
+                                    <Button
+                                        onClick={() => deletereportemployee(reportEmployee)}
+                                        variant="secondary"
+                                        size="sm"
+                                    >
+                                        delete
+                                    </Button>
+                                </td> 
                             </tr>
                     )})}
                 </tbody>
